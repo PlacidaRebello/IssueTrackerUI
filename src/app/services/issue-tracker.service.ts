@@ -1261,6 +1261,59 @@ export class RegisterClient {
         }
         return _observableOf<SuccessResponse>(<any>null);
     }
+
+
+    getUsers(): Observable<GetUsersData[]> {
+        let url_ = this.baseUrl + "/api/Register/Users";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUsers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUsers(<any>response_);
+                } catch (e) {
+                    return <Observable<GetUsersData[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetUsersData[]>><any>_observableThrow(response_);
+        }));
+    }
+    protected processGetUsers(response: HttpResponseBase): Observable<GetUsersData[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetUsersData.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetUsersData[]>(<any>null);
+    }
+
 }
 
 @Injectable()
@@ -1595,70 +1648,6 @@ export class SignInClient {
     }
 }
 
-@Injectable()
-export class WeatherForecastClient {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
-    }
-
-    get(): Observable<WeatherForecast[]> {
-        let url_ = this.baseUrl + "/WeatherForecast";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",			
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGet(<any>response_);
-                } catch (e) {
-                    return <Observable<WeatherForecast[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<WeatherForecast[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGet(response: HttpResponseBase): Observable<WeatherForecast[]> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<WeatherForecast[]>(<any>null);
-    }
-}
-
 export class Sprint implements ISprint {
     sprintName?: string | undefined;
     sprintPoints!: number;
@@ -1929,6 +1918,17 @@ export class Issue implements IIssue {
     issueStatusId!: number;
     createdBy?: string | undefined;
     order!: number;
+    issueTypeId!: number;
+    attachment?: string | undefined;
+    reporter!: number;
+    enviroment?: string | undefined;
+    browser?: string | undefined;
+    acceptanceCriteria?: string | undefined;
+    storyPoints!: number;
+    epic!: number;
+    uat!: number;
+    // myProperty!: boolean;
+    tImeTracking?: string | undefined;
 
     constructor(data?: IIssue) {
         if (data) {
@@ -1948,6 +1948,17 @@ export class Issue implements IIssue {
             this.issueStatusId = _data["issueStatusId"];
             this.createdBy = _data["createdBy"];
             this.order = _data["order"];
+            this.issueTypeId = _data["issueTypeId"];
+            this.attachment = _data["attachment"];
+            this.reporter = _data["reporter"];
+            this.enviroment = _data["enviroment"];
+            this.browser = _data["browser"];
+            this.acceptanceCriteria = _data["acceptanceCriteria"];
+            this.storyPoints = _data["storyPoints"];
+            this.epic = _data["epic"];
+            this.uat = _data["uat"];
+            // this.myProperty = _data["myProperty"];
+            this.tImeTracking = _data["tImeTracking"];
         }
     }
 
@@ -1967,6 +1978,17 @@ export class Issue implements IIssue {
         data["issueStatusId"] = this.issueStatusId;
         data["createdBy"] = this.createdBy;
         data["order"] = this.order;
+        data["issueTypeId"] = this.issueTypeId;
+        data["attachment"] = this.attachment;
+        data["reporter"] = this.reporter;
+        data["enviroment"] = this.enviroment;
+        data["browser"] = this.browser;
+        data["acceptanceCriteria"] = this.acceptanceCriteria;
+        data["storyPoints"] = this.storyPoints;
+        data["epic"] = this.epic;
+        data["uat"] = this.uat;
+        // data["myProperty"] = this.myProperty;
+        data["tImeTracking"] = this.tImeTracking;
         return data; 
     }
 }
@@ -1979,6 +2001,17 @@ export interface IIssue {
     issueStatusId: number;
     createdBy?: string | undefined;
     order: number;
+    issueTypeId: number;
+    attachment?: string | undefined;
+    reporter: number;
+    enviroment?: string | undefined;
+    browser?: string | undefined;
+    acceptanceCriteria?: string | undefined;
+    storyPoints: number;
+    epic: number;
+    uat: number;
+    // myProperty: boolean;
+    tImeTracking?: string | undefined;
 }
 
 export class GetIssueData extends Issue implements IGetIssueData {
@@ -2083,7 +2116,7 @@ export class DragDropIssueRequest implements IDragDropIssueRequest {
     prevItemId!: number;
     nextItemId!: number;
     currentItemIndex!: number;
-    issueStatus?: number | undefined;
+    issueStatus!: number;
     issueId!: number;
 
     constructor(data?: IDragDropIssueRequest) {
@@ -2130,7 +2163,7 @@ export interface IDragDropIssueRequest {
     prevItemId: number;
     nextItemId: number;
     currentItemIndex: number;
-    issueStatus?: number | undefined;
+    issueStatus: number;
     issueId: number;
 }
 
@@ -2448,6 +2481,47 @@ export interface IRegisterUserRequest {
     confirmPassword: string;
 }
 
+export class GetUsersData implements IGetUsersData {
+    id!: string;
+    username?: string | undefined;
+
+    constructor(data?: IGetUsersData) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.username = _data["username"];
+        }
+    }
+
+    static fromJS(data: any): GetUsersData {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetUsersData();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["username"] = this.username;
+        return data; 
+    }
+}
+
+export interface IGetUsersData {
+    id: string;
+    username?: string | undefined;
+}
+
+
 export class Release implements IRelease {
     releaseName?: string | undefined;
     sprintStatusId!: number;
@@ -2662,54 +2736,6 @@ export interface IUser {
 // }
 
 export interface ICreateSignInUserRequest extends IUser {
-}
-
-export class WeatherForecast implements IWeatherForecast {
-    date!: Date;
-    temperatureC!: number;
-    temperatureF!: number;
-    summary?: string | undefined;
-
-    constructor(data?: IWeatherForecast) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.date = _data["date"] ? new Date(_data["date"].toString()) : <any>undefined;
-            this.temperatureC = _data["temperatureC"];
-            this.temperatureF = _data["temperatureF"];
-            this.summary = _data["summary"];
-        }
-    }
-
-    static fromJS(data: any): WeatherForecast {
-        data = typeof data === 'object' ? data : {};
-        let result = new WeatherForecast();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
-        data["temperatureC"] = this.temperatureC;
-        data["temperatureF"] = this.temperatureF;
-        data["summary"] = this.summary;
-        return data; 
-    }
-}
-
-export interface IWeatherForecast {
-    date: Date;
-    temperatureC: number;
-    temperatureF: number;
-    summary?: string | undefined;
 }
 
 export interface FileResponse {

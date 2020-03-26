@@ -1,5 +1,5 @@
 import { Component, OnInit,Inject} from '@angular/core';
-import { IssuesClient,IssueStatusClient, CreateIssueRequest, EditIssueRequest, GetIssueData, GetIssueStatusData}from 'src/app/services/issue-tracker.service';
+import { IssuesClient,IssueStatusClient, CreateIssueRequest, EditIssueRequest, GetIssueData, GetIssueStatusData, IssueTypesClient, GetIssueTypeData, RegisterClient, GetUsersData}from 'src/app/services/issue-tracker.service';
 import { FormGroup,FormControl, Validators ,FormBuilder} from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar, MatDialogConfig, MatDialog } from '@angular/material';
@@ -23,7 +23,12 @@ export class AddEditIssueComponent implements OnInit {
   DeleteButton=false;
   issue:IssuesClient = new IssuesClient(this.http,""); 
   issueStatus:IssueStatusClient= new  IssueStatusClient(this.http,"");
-  public issueStatusList;
+  issueType:IssueTypesClient= new IssueTypesClient(this.http,"");
+  user:RegisterClient=new RegisterClient(this.http,"");
+  public issueStatusList;issueTypeList;usersList;
+  
+  private selectedType:number;
+
   constructor(private http:HttpClient,private fb:FormBuilder,private dialogRef:MatDialogRef<AddEditIssueComponent>,
     private route:ActivatedRoute,private _snackBar:MatSnackBar,@Inject(MAT_DIALOG_DATA)public data:any
     ,private matDialog:MatDialog) { }
@@ -39,25 +44,48 @@ export class AddEditIssueComponent implements OnInit {
   issues=this.issueStatus.getStatusList().subscribe(res=>{
     this.issueStatusList=res as GetIssueStatusData[];
   });
+  
+  issueTypes=this.issueType.getIssueTypeAll().subscribe(res=>{
+    this.issueTypeList=res as GetIssueTypeData[];
+  });
+
+  users=this.user.getUsers().subscribe(res=>{
+    this.usersList=res as GetUsersData[];
+    console.log(res);
+  });
 
   createForm() {
     this.issueForm=this.fb.group({      
       issueId:this.issueId?this.issueId:'',
       subject:['',[Validators.required,Validators.minLength(5)]],     
       description:['',[Validators.required,Validators.minLength(10)]],
-      assignedTo:['',Validators.required],
+      assignedTo:['',[Validators.required,Validators.min(1)]],
       tags:['',Validators.required],
       issueStatusId:['',[Validators.required,Validators.min(1)]],
       statusName:'',
       createdBy:'',
-      order:''
+      order:'',
+      issueTypeId:['',[Validators.required,Validators.min(1)]],
+      attachment:'',
+      reporter:'',
+      enviroment:'',
+      browser:'',
+      acceptanceCriteria:'',
+      storyPoints:'',
+      epic:'',
+      uat:'',
+      tImeTracking:''
     });     
   }
 
+  
   private initForm()  {
     if(this.editMode){  
+      debugger;
        this.issue.getIssue(this.data.id).subscribe(res=>{
          this.issueForm.setValue(res);
+         console.log(res);
+         this.selectedType=res.issueTypeId;
          this.DeleteButton=true;
       });
       this.AddButton=false;
@@ -89,6 +117,17 @@ export class AddEditIssueComponent implements OnInit {
        newIssue.assignedTo = formvalues.assignedTo;
        newIssue.tags = formvalues.tags;
        newIssue.issueStatusId=formvalues.issueStatusId;
+       newIssue.issueTypeId=formvalues.issueTypeId;
+       newIssue.attachment=formvalues.attachment;
+       newIssue.reporter=formvalues.reporter;
+       newIssue.enviroment=formvalues.enviroment;
+       newIssue.browser=formvalues.browser;
+       newIssue.acceptanceCriteria=formvalues.acceptanceCriteria;
+       newIssue.storyPoints=formvalues.storyPoints;
+       newIssue.epic=formvalues.epic;
+       newIssue.uat=formvalues.uat;
+       newIssue.tImeTracking=formvalues.tImeTracking;
+
        this.issue.postIssue(newIssue).subscribe(res=>{           
            this._snackBar.open(res.message,"OK",{
              duration:2000,

@@ -11,37 +11,11 @@
       </div>
         <form [formGroup]="issueForm" autocomplete="off" novalidate (ngSubmit)="onSubmit()" fxLayout="column wrap"
             fxLayoutAlign="center" fxLayoutGap="20px">
-           <mat-dialog-content>  
-              <mat-form-field>
-                <input matInput type="text" placeholder="subject" formControlName="subject" id="name">
-                <mat-hint align="end">Not less then 5 characters .</mat-hint>
-                <mat-error *ngIf="hasError('subject','required')">subject is required</mat-error>
-                <mat-error *ngIf="hasError('subject', 'minlength')">Please enter min 5 characters</mat-error>
-              </mat-form-field>
-
-              <mat-form-field>
-                <input matInput type="text" placeholder="description" formControlName="description" id="name">
-                <mat-hint align="end">Not less then 10 characters .</mat-hint>
-                <mat-error *ngIf="hasError('description','required')">description is required</mat-error>
-                <mat-error *ngIf="hasError('description', 'minlength')">Please enter min 10 characters</mat-error>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput type="text" placeholder="assignedTo" formControlName="assignedTo" id="name">
-                <mat-hint align="end">Not less then 5 characters .</mat-hint>
-                <mat-error *ngIf="hasError('assignedTo','required')">assignedTo is required</mat-error>
-                <mat-error *ngIf="hasError('assignedTo', 'minlength')">Please enter min 5 characters</mat-error>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput type="text" placeholder="tags" formControlName="tags" id="name">
-                <mat-hint align="end">Not less then 3 characters .</mat-hint>
-                <mat-error *ngIf="hasError('tags','required')">tags is required</mat-error>
-                <mat-error *ngIf="hasError('tags', 'minlength')">Please enter min 5 characters</mat-error>
-              </mat-form-field>
-
-              
-            <div *ngIf="AddButton">
-              <mat-form-field>
-                    <mat-label>Select an option</mat-label>
+           <mat-dialog-content> 
+        <div>
+            <!-- <div *ngIf="AddButton"> -->
+              <mat-form-field *ngIf="AddButton">
+                    <mat-label>Select IssueStatus</mat-label>
                     <mat-select formControlName="issueStatusId" >
                         <mat-option *ngFor="let status of issueStatusList" [value]="status.issueStatusId">
                             {{ status.statusName}}
@@ -49,8 +23,102 @@
                     </mat-select>              
                     <mat-error *ngIf="hasError('issueStatusId','required')">IssueStatus is required</mat-error>
               </mat-form-field>
-            </div>
-           </mat-dialog-content>    
+            <!-- </div> -->
+
+            <mat-form-field>
+              <mat-label>Select IssueType</mat-label>
+              <mat-select formControlName="issueTypeId" [(value)]="selectedType">
+                  <mat-option *ngFor="let issueType of issueTypeList" [value]="issueType.issueTypeId">
+                      {{ issueType.issueTypeName}}
+                  </mat-option>
+              </mat-select>              
+            </mat-form-field> 
+            <mat-form-field *ngIf="selectedType===5">
+              <input matInput type="text" placeholder="TimeTracking" formControlName="tImeTracking" >
+              <mat-hint align="start">Not less then 3 characters .</mat-hint>
+            </mat-form-field>
+        </div>
+        <div aria-colcount="4" >
+              <mat-form-field>
+                <input matInput type="text" placeholder="Subject" formControlName="subject" id="name">
+                <mat-hint align="start">Not less then 5 characters .</mat-hint>
+                <mat-error *ngIf="hasError('subject','required')">subject is required</mat-error>
+                <mat-error *ngIf="hasError('subject', 'minlength')">Please enter min 5 characters</mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput type="text" placeholder="Description" formControlName="description" id="name">
+                <mat-hint align="start">Not less then 10 characters .</mat-hint>
+                <mat-error *ngIf="hasError('description','required')">description is required</mat-error>
+                <mat-error *ngIf="hasError('description', 'minlength')">Please enter min 10 characters</mat-error>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Select Assigned To</mat-label>
+                <mat-select formControlName="assignedTo" >
+                    <mat-option *ngFor="let user of usersList" [value]="user.id">
+                        {{ user.username}}
+                    </mat-option>
+                </mat-select>                    
+                <mat-error *ngIf="hasError('assignedTo','required')">assignedTo is required</mat-error>                         
+              </mat-form-field>     
+               
+              <mat-form-field>
+                <input matInput type="text" placeholder="Tags" formControlName="tags" id="name">
+                <mat-hint align="start">Not less then 3 characters .</mat-hint>
+                <mat-error *ngIf="hasError('tags','required')">tags is required</mat-error>
+                <mat-error *ngIf="hasError('tags', 'minlength')">Please enter min 5 characters</mat-error>
+              </mat-form-field> 
+      </div>
+      <br>          
+      <div aria-colcount="4" *ngIf="selectedType===3">      
+              <mat-form-field>
+                <input matInput type="text" placeholder="Attachment" formControlName="attachment" >
+                <mat-hint align="start">Not less then 3 characters .</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Select Reporter</mat-label>
+                <mat-select formControlName="reporter" >
+                    <mat-option *ngFor="let user of usersList" [value]="user.id">
+                        {{ user.username}}
+                    </mat-option>
+                </mat-select>                            
+              </mat-form-field> 
+
+              <mat-form-field>
+                <input matInput type="text" placeholder="Enviroment" formControlName="enviroment" >
+                <mat-hint align="start">Not less then 3 characters .</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput type="text" placeholder="Browser" formControlName="browser" >
+                <mat-hint align="start">Not less then 3 characters .</mat-hint>
+              </mat-form-field>
+       </div>
+       <br>
+       <div aria-colcount="4" *ngIf="selectedType===4">
+              <mat-form-field>
+                <input matInput type="text" placeholder="AcceptanceCriteria" formControlName="acceptanceCriteria" >
+                <mat-hint align="start">Not less then 3 characters .</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput type="number" placeholder="StoryPoints" formControlName="storyPoints" >
+                <mat-hint align="start">Not more 3 characters .</mat-hint>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" placeholder="Epic" formControlName="epic" >
+                <mat-hint align="start">Not more 2 characters .</mat-hint>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" placeholder="UAT" formControlName="uat" >
+                <mat-hint align="start">Not more than 3 characters .</mat-hint>
+              </mat-form-field>
+       </div>      
+            <br>
+
+       </mat-dialog-content>    
 
            <mat-dialog-actions align="center">
                

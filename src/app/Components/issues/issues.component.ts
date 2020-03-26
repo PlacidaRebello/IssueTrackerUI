@@ -20,6 +20,7 @@ export class IssuesComponent implements OnInit{
   public InProgressList:GetIssueData[]=[];
   public CompletedList:GetIssueData[]=[];
   public issuesDt;
+  public ProgessListId;ToDoListId;CompletedListId;
 
   constructor(private route:ActivatedRoute,private router:Router,
     private matDialog:MatDialog,private _snackBar:MatSnackBar,
@@ -49,10 +50,13 @@ export class IssuesComponent implements OnInit{
     {
       if(issueList[i].statusName=="TODO"){        
         this.TodoList.push(issueList[i]);
+        this.ToDoListId=issueList[i].issueStatusId;
       }else if(issueList[i].statusName=="IN PROGRESS"){        
         this.InProgressList.push(issueList[i]);
+        this.ProgessListId=issueList[i].issueStatusId;
       }else if(issueList[i].statusName=="COMPLETED"){        
         this.CompletedList.push(issueList[i]);
+        this.CompletedListId=issueList[i].issueStatusId;
       }
     }
   }
@@ -88,6 +92,7 @@ export class IssuesComponent implements OnInit{
         this.DragDropIssue(updateIssue);
     } 
     else {
+      debugger;
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
@@ -97,14 +102,13 @@ export class IssuesComponent implements OnInit{
       
         if(event.currentIndex!=0){
              updateIssue.prevItem=true;
-             updateIssue.prevItemId=this.issuesDt[event.currentIndex-1].issueId;
-            
+             updateIssue.prevItemId=this.issuesDt[event.currentIndex-1].issueId;            
              updateIssue.issueStatus=this.issuesDt[event.currentIndex-1].issueStatusId;
         }
         else{          
           updateIssue.prevItem=false;
           updateIssue.prevItemId=0;          
-          updateIssue.issueStatus=this.issuesDt[event.currentIndex+1].issueStatusId;
+          updateIssue.issueStatus=this.issuesDt[event.currentIndex+1].issueStatusId;          
         }
 
         if(this.issuesDt[event.currentIndex+1]){
@@ -112,8 +116,15 @@ export class IssuesComponent implements OnInit{
         }
         else{          
           updateIssue.nextItemId=0;
-        }              
-console.log(updateIssue.issueStatus);
+        }  
+
+//         if(updateIssue.prevItemId==0 && updateIssue.nextItemId==0)
+//         {
+//           updateIssue.issueStatus=this.issuesDt.id;
+//         }  
+
+// console.log(updateIssue.issueStatus,event.container.id);
+
         //backened call
        this.DragDropIssue(updateIssue);
     }

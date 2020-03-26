@@ -7,7 +7,7 @@
 
     <div class="example-list"
          cdkDropList
-         id="ToDo"
+         id="ToDoListId"
          #todoList="cdkDropList"
          [cdkDropListData]="TodoList"         
          [cdkDropListConnectedTo]="[inProgressList,completedList]"
@@ -28,7 +28,7 @@
 
     <div class="example-list"
          cdkDropList
-         id="In Progress"
+         id="ProgessId"
          #inProgressList="cdkDropList"
          [cdkDropListData]="InProgressList"
          [cdkDropListConnectedTo]="[todoList,completedList]"  
@@ -49,7 +49,7 @@
 
     <div class="example-list"
          cdkDropList
-         id="Completed"
+         [id]="CompletedListId"
          #completedList="cdkDropList"
          [cdkDropListData]="CompletedList"
          [cdkDropListConnectedTo]="[inProgressList,completedList]"  
