@@ -111,10 +111,18 @@
                 <input matInput type="number" placeholder="Epic" formControlName="epic" >
                 <mat-hint align="start">Not more 2 characters .</mat-hint>
               </mat-form-field>
-              <mat-form-field>
-                <input matInput type="number" placeholder="UAT" formControlName="uat" >
-                <mat-hint align="start">Not more than 3 characters .</mat-hint>
-              </mat-form-field>
+              <mat-slide-toggle   formControlName="uat">
+                UAT: Is Required
+               </mat-slide-toggle>
+
+               <!-- <mat-radio-group formControlName="uat">
+                <mat-radio-button class="example-margin" value="true">
+                  Primary
+                </mat-radio-button>
+                <mat-radio-button class="example-margin" value="false">
+                  Accent
+                </mat-radio-button>
+              </mat-radio-group> -->
        </div>      
             <br>
 

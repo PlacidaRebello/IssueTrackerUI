@@ -26,7 +26,6 @@ export class AddEditIssueComponent implements OnInit {
   issueType:IssueTypesClient= new IssueTypesClient(this.http,"");
   user:RegisterClient=new RegisterClient(this.http,"");
   public issueStatusList;issueTypeList;usersList;
-  
   private selectedType:number;
 
   constructor(private http:HttpClient,private fb:FormBuilder,private dialogRef:MatDialogRef<AddEditIssueComponent>,
@@ -51,7 +50,6 @@ export class AddEditIssueComponent implements OnInit {
 
   users=this.user.getUsers().subscribe(res=>{
     this.usersList=res as GetUsersData[];
-    console.log(res);
   });
 
   createForm() {
@@ -71,9 +69,9 @@ export class AddEditIssueComponent implements OnInit {
       enviroment:'',
       browser:'',
       acceptanceCriteria:'',
-      storyPoints:'',
-      epic:'',
-      uat:'',
+      storyPoints:0,
+      epic:0,
+      uat:'false',
       tImeTracking:''
     });     
   }
@@ -84,7 +82,6 @@ export class AddEditIssueComponent implements OnInit {
       debugger;
        this.issue.getIssue(this.data.id).subscribe(res=>{
          this.issueForm.setValue(res);
-         console.log(res);
          this.selectedType=res.issueTypeId;
          this.DeleteButton=true;
       });
@@ -127,7 +124,6 @@ export class AddEditIssueComponent implements OnInit {
        newIssue.epic=formvalues.epic;
        newIssue.uat=formvalues.uat;
        newIssue.tImeTracking=formvalues.tImeTracking;
-
        this.issue.postIssue(newIssue).subscribe(res=>{           
            this._snackBar.open(res.message,"OK",{
              duration:2000,

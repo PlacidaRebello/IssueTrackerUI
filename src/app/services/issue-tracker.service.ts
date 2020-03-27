@@ -1926,7 +1926,7 @@ export class Issue implements IIssue {
     acceptanceCriteria?: string | undefined;
     storyPoints!: number;
     epic!: number;
-    uat!: number;
+    uat!: boolean;
     // myProperty!: boolean;
     tImeTracking?: string | undefined;
 
@@ -2009,7 +2009,7 @@ export interface IIssue {
     acceptanceCriteria?: string | undefined;
     storyPoints: number;
     epic: number;
-    uat: number;
+    uat: boolean;
     // myProperty: boolean;
     tImeTracking?: string | undefined;
 }

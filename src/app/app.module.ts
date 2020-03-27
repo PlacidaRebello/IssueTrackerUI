@@ -20,7 +20,7 @@ import{MatCardModule,
   MatDatepickerModule, 
   MatNativeDateModule,
   MatDialogModule,
-  MatSelectModule,MatButtonModule,MatIconModule,MatSnackBarModule
+  MatSelectModule,MatButtonModule,MatIconModule,MatSnackBarModule,MatSlideToggleModule, MatRadioModule
 }  from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -75,7 +75,8 @@ import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issu
     MatNativeDateModule,
     MatDialogModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule,MatRadioModule
   ],
   providers: [IssueTrackerService,UserService,{
     provide: HTTP_INTERCEPTORS,
