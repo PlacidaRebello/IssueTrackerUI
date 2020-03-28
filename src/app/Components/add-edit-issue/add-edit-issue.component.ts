@@ -81,7 +81,6 @@ export class AddEditIssueComponent implements OnInit {
   private initForm()  {
     if(this.editMode){  
        this.issue.getIssue(this.data.id).subscribe(res=>{
-         console.log(res);
          this.issueForm.setValue(res);
          this.selectedType=res.issueTypeId;
          this.DeleteButton=true;
