@@ -64,6 +64,7 @@ export class AddEditIssueComponent implements OnInit {
       createdBy:'',
       order:'',
       issueTypeId:['',[Validators.required,Validators.min(1)]],
+      issueDetailsId:0,
       attachment:'',
       reporter:'',
       enviroment:'',
@@ -71,7 +72,7 @@ export class AddEditIssueComponent implements OnInit {
       acceptanceCriteria:'',
       storyPoints:0,
       epic:0,
-      uat:'false',
+      uat:false,
       tImeTracking:''
     });     
   }
@@ -79,8 +80,8 @@ export class AddEditIssueComponent implements OnInit {
   
   private initForm()  {
     if(this.editMode){  
-      debugger;
        this.issue.getIssue(this.data.id).subscribe(res=>{
+         console.log(res);
          this.issueForm.setValue(res);
          this.selectedType=res.issueTypeId;
          this.DeleteButton=true;
@@ -121,7 +122,7 @@ export class AddEditIssueComponent implements OnInit {
        newIssue.browser=formvalues.browser;
        newIssue.acceptanceCriteria=formvalues.acceptanceCriteria;
        newIssue.storyPoints=formvalues.storyPoints;
-       newIssue.epic=formvalues.epic;
+       newIssue.epic=formvalues.epic;       
        newIssue.uat=formvalues.uat;
        newIssue.tImeTracking=formvalues.tImeTracking;
        this.issue.postIssue(newIssue).subscribe(res=>{           
@@ -145,6 +146,17 @@ export class AddEditIssueComponent implements OnInit {
       updateIssue.tags = formvalues.tags;
       updateIssue.issueId=this.issueId;
       updateIssue.issueStatusId=formvalues.issueStatusId;
+      updateIssue.issueTypeId=formvalues.issueTypeId;
+      updateIssue.attachment=formvalues.attachment;
+      updateIssue.reporter=formvalues.reporter;
+      updateIssue.enviroment=formvalues.enviroment;
+      updateIssue.browser=formvalues.browser;
+      updateIssue.acceptanceCriteria=formvalues.acceptanceCriteria;
+      updateIssue.storyPoints=formvalues.storyPoints;
+      updateIssue.epic=formvalues.epic;       
+      updateIssue.uat=formvalues.uat;
+      updateIssue.tImeTracking=formvalues.tImeTracking;
+      updateIssue.issueDetailsId=formvalues.issueDetailsId; 
 
       this.issue.putIssue(updateIssue).subscribe(res=>{
           this._snackBar.open(res.message,"OK",{

@@ -657,6 +657,7 @@ export class IssuesClient {
         }
         return _observableOf<SuccessResponse>(<any>null);
     }
+    
 }
 
 @Injectable()
@@ -2017,6 +2018,7 @@ export interface IIssue {
 export class GetIssueData extends Issue implements IGetIssueData {
     issueId!: number;
     statusName?: string | undefined;
+    issueDetailsId!:number;
 
     constructor(data?: IGetIssueData) {
         super(data);
@@ -2027,6 +2029,7 @@ export class GetIssueData extends Issue implements IGetIssueData {
         if (_data) {
             this.issueId = _data["issueId"];
             this.statusName = _data["statusName"];
+            this.issueDetailsId=_data["issueDetailsId"];
         }
     }
 
@@ -2041,6 +2044,7 @@ export class GetIssueData extends Issue implements IGetIssueData {
         data = typeof data === 'object' ? data : {};
         data["issueId"] = this.issueId;
         data["statusName"] = this.statusName;
+        data["issueDetailsId"]=this.issueDetailsId;
         super.toJSON(data);
         return data; 
     }
@@ -2049,10 +2053,12 @@ export class GetIssueData extends Issue implements IGetIssueData {
 export interface IGetIssueData extends IIssue {
     issueId: number;
     statusName?: string | undefined;
+    issueDetailsId:number;
 }
 
 export class EditIssueRequest extends Issue implements IEditIssueRequest {
     issueId!: number;
+    issueDetailsId!:number;
 
     constructor(data?: IEditIssueRequest) {
         super(data);
@@ -2062,6 +2068,7 @@ export class EditIssueRequest extends Issue implements IEditIssueRequest {
         super.init(_data);
         if (_data) {
             this.issueId = _data["issueId"];
+            this.issueDetailsId=_data["issueDetailsId"];
         }
     }
 
@@ -2075,6 +2082,7 @@ export class EditIssueRequest extends Issue implements IEditIssueRequest {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["issueId"] = this.issueId;
+        data["issueDetailsId"]=this.issueDetailsId;
         super.toJSON(data);
         return data; 
     }
@@ -2082,6 +2090,7 @@ export class EditIssueRequest extends Issue implements IEditIssueRequest {
 
 export interface IEditIssueRequest extends IIssue {
     issueId: number;
+    issueDetailsId:number;
 }
 
 export class CreateIssueRequest extends Issue implements ICreateIssueRequest {
@@ -2209,6 +2218,7 @@ export interface IIssueStatus {
 
 export class GetIssueStatusData extends IssueStatus implements IGetIssueStatusData {
     issueStatusId!: number;
+
 
     constructor(data?: IGetIssueStatusData) {
         super(data);

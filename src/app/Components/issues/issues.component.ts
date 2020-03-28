@@ -87,12 +87,10 @@ export class IssuesComponent implements OnInit{
          else{          
            updateIssue.nextItemId=0;
          }
-         console.log(updateIssue);
          
         this.DragDropIssue(updateIssue);
     } 
     else {
-      debugger;
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
