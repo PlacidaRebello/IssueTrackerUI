@@ -114,16 +114,7 @@ export class IssuesComponent implements OnInit{
         }
         else{          
           updateIssue.nextItemId=0;
-        }  
-
-//         if(updateIssue.prevItemId==0 && updateIssue.nextItemId==0)
-//         {
-//           updateIssue.issueStatus=this.issuesDt.id;
-//         }  
-
-// console.log(updateIssue.issueStatus,event.container.id);
-
-        //backened call
+        } 
        this.DragDropIssue(updateIssue);
     }
   } 

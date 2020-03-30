@@ -12,9 +12,8 @@
         <form [formGroup]="issueForm" autocomplete="off" novalidate (ngSubmit)="onSubmit()" fxLayout="column wrap"
             fxLayoutAlign="center" fxLayoutGap="20px">
            <mat-dialog-content> 
-        <div>
-            <!-- <div *ngIf="AddButton"> -->
-              <mat-form-field *ngIf="AddButton">
+        <div>           
+            <mat-form-field *ngIf="AddButton">
                     <mat-label>Select IssueStatus</mat-label>
                     <mat-select formControlName="issueStatusId" >
                         <mat-option *ngFor="let status of issueStatusList" [value]="status.issueStatusId">
@@ -22,9 +21,8 @@
                         </mat-option>
                     </mat-select>              
                     <mat-error *ngIf="hasError('issueStatusId','required')">IssueStatus is required</mat-error>
-              </mat-form-field>
-            <!-- </div> -->
-
+            </mat-form-field>
+           
             <mat-form-field>
               <mat-label>Select IssueType</mat-label>
               <mat-select formControlName="issueTypeId" [(value)]="selectedType">
@@ -33,6 +31,7 @@
                   </mat-option>
               </mat-select>              
             </mat-form-field> 
+
             <mat-form-field *ngIf="selectedType===5">
               <input matInput type="text" placeholder="TimeTracking" formControlName="tImeTracking" >
               <mat-hint align="start">Not less then 3 characters .</mat-hint>

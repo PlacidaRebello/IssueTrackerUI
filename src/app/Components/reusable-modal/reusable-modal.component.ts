@@ -42,14 +42,12 @@ export class ReusableModalComponent implements OnInit {
       });
     } 
    else if(this.modalData.name=="Issue") {
-     debugger;
       this.issue.deleteIssue(this.Id).subscribe(res=>{
         this._snackBar.open(res.message,"OK",{
           duration:2000,
         });
       });
     }   
-
     this.closeModal();
   }
 
