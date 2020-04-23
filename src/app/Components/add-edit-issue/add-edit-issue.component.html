@@ -32,6 +32,16 @@
               </mat-select>              
             </mat-form-field> 
 
+            <mat-form-field>
+              <mat-label>Select Sprint</mat-label>
+              <mat-select formControlName="sprintId" >
+                  <mat-option *ngFor="let sprint of sprintsList" [value]="sprint.sprintId">
+                      {{ sprint.sprintName}}
+                  </mat-option>
+              </mat-select>               
+              <mat-error *ngIf="hasError('sprintId','required')">sprint is required</mat-error>             
+            </mat-form-field> 
+
             <mat-form-field *ngIf="selectedType===5">
               <input matInput type="text" placeholder="TimeTracking" formControlName="tImeTracking" >
               <mat-hint align="start">Not less then 3 characters .</mat-hint>

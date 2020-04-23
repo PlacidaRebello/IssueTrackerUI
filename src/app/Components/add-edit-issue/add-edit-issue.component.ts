@@ -1,11 +1,9 @@
 import { Component, OnInit,Inject} from '@angular/core';
-import { IssuesClient,IssueStatusClient, CreateIssueRequest, EditIssueRequest, GetIssueData, GetIssueStatusData, IssueTypesClient, GetIssueTypeData, RegisterClient, GetUsersData}from 'src/app/services/issue-tracker.service';
+import { IssuesClient,IssueStatusClient, CreateIssueRequest, EditIssueRequest, GetIssueData, GetIssueStatusData, GetSprintsList,IssueTypesClient, GetIssueTypeData, RegisterClient, GetUsersData, SprintsClient}from 'src/app/services/issue-tracker.service';
 import { FormGroup,FormControl, Validators ,FormBuilder} from '@angular/forms';
-import { Location } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar, MatDialogConfig, MatDialog } from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Route } from '@angular/compiler/src/core';
 import { ReusableModalComponent } from '../reusable-modal/reusable-modal.component';
 
 @Component({
@@ -21,13 +19,15 @@ export class AddEditIssueComponent implements OnInit {
   issueForm:FormGroup;
   AddButton=true;
   DeleteButton=false;
+  public issueStatusList;issueTypeList;usersList;sprintsList;
+  private selectedType:number;
+
   issue:IssuesClient = new IssuesClient(this.http,""); 
   issueStatus:IssueStatusClient= new  IssueStatusClient(this.http,"");
   issueType:IssueTypesClient= new IssueTypesClient(this.http,"");
-  user:RegisterClient=new RegisterClient(this.http,"");
-  public issueStatusList;issueTypeList;usersList;
-  private selectedType:number;
-
+  sprint:SprintsClient=new SprintsClient(this.http,"");
+  user:RegisterClient=new RegisterClient(this.http,""); 
+ 
   constructor(private http:HttpClient,private fb:FormBuilder,private dialogRef:MatDialogRef<AddEditIssueComponent>,
     private route:ActivatedRoute,private _snackBar:MatSnackBar,@Inject(MAT_DIALOG_DATA)public data:any
     ,private matDialog:MatDialog) { }
@@ -48,6 +48,10 @@ export class AddEditIssueComponent implements OnInit {
     this.issueTypeList=res as GetIssueTypeData[];
   });
 
+  sprints=this.sprint.getListOfSprints().subscribe(res=>{
+    this.sprintsList=res as GetSprintsList[];
+  });
+
   users=this.user.getUsers().subscribe(res=>{
     this.usersList=res as GetUsersData[];
   });
@@ -66,14 +70,15 @@ export class AddEditIssueComponent implements OnInit {
       issueTypeId:['',[Validators.required,Validators.min(1)]],
       issueDetailsId:0,
       attachment:'',
-      reporter:'',
+      reporter:[null],
       enviroment:'',
       browser:'',
       acceptanceCriteria:'',
       storyPoints:0,
       epic:0,
       uat:false,
-      tImeTracking:''
+      tImeTracking:'',
+      sprintId:['',Validators.required]
     });     
   }
 
@@ -124,6 +129,7 @@ export class AddEditIssueComponent implements OnInit {
        newIssue.epic=formvalues.epic;       
        newIssue.uat=formvalues.uat;
        newIssue.tImeTracking=formvalues.tImeTracking;
+       newIssue.sprintId=formvalues.sprintId;
        this.issue.postIssue(newIssue).subscribe(res=>{           
            this._snackBar.open(res.message,"OK",{
              duration:2000,
@@ -156,7 +162,7 @@ export class AddEditIssueComponent implements OnInit {
       updateIssue.uat=formvalues.uat;
       updateIssue.tImeTracking=formvalues.tImeTracking;
       updateIssue.issueDetailsId=formvalues.issueDetailsId; 
-
+      updateIssue.sprintId=formvalues.sprintId;
       this.issue.putIssue(updateIssue).subscribe(res=>{
           this._snackBar.open(res.message,"OK",{
             duration:2000,

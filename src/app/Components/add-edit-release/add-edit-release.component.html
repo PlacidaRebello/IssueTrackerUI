@@ -9,8 +9,8 @@
            <mat-dialog-content>  
               <mat-form-field>
                 <input matInput type="text" placeholder="releaseName" formControlName="releaseName" id="name">
-                <mat-hint align="end">Not less then 5 characters .</mat-hint>
-                <mat-error *ngIf="hasError('releaseName','required')">releaseName is required</mat-error>
+                <mat-hint>Not less then 5 characters .</mat-hint>
+                <mat-error *ngIf="hasError('releaseName','required')">ReleaseName is required</mat-error>
                 <mat-error *ngIf="hasError('releaseName', 'minlength')">Please enter min 5 characters</mat-error>
               </mat-form-field>
 
@@ -29,7 +29,7 @@
               </mat-form-field> 
 
               <mat-form-field>
-                    <mat-label>Select an option</mat-label>
+                    <mat-label>Select Status</mat-label>
                     <mat-select formControlName="sprintStatusId" >
                         <mat-option *ngFor="let status of SprintStatus" [value]="status.sprintStatusId">
                             {{ status.sprintStatusName }}

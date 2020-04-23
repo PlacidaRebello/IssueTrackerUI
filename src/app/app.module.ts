@@ -24,6 +24,7 @@ import{MatCardModule,
 }  from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ChartsModule} from 'ng2-charts';
 
 import { SprintComponent} from './Components/sprint/sprint.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
@@ -37,6 +38,7 @@ import { LoginFormComponent } from './Components/login-form/login-form.component
 import { JwtInterceptor } from './jwt-interceptor';
 import { IssuesComponent } from './Components/issues/issues.component';
 import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issue.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issu
     ReleaseComponent,
     LoginFormComponent,
     IssuesComponent,
-    AddEditIssueComponent
+    AddEditIssueComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,8 @@ import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issu
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatSlideToggleModule,MatRadioModule
+    MatSlideToggleModule,MatRadioModule,
+    ChartsModule
   ],
   providers: [IssueTrackerService,UserService,{
     provide: HTTP_INTERCEPTORS,

@@ -40,7 +40,7 @@ export class SprintComponent implements OnInit ,AfterViewInit{
   
   getSprintList()  {
     this.sprint.getSprints().subscribe(res=>{   
-       this.dataSource.data = res as GetSprintData[];             
+       this.dataSource.data = res as GetSprintData[]; 
     });    
   }
 
@@ -48,9 +48,7 @@ export class SprintComponent implements OnInit ,AfterViewInit{
     const dialogConfig = new MatDialogConfig();
     this.matDialog.open(AddEditSprintComponent,{ data:{id}});  
   }
-  // public redirectToDetails(id):void{    
-  // }
-
+  
   public redirectToDelete(id):void  {
     this.openCofirmationModal(id);
   }

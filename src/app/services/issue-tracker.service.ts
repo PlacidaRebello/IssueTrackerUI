@@ -32,7 +32,7 @@ export class SprintsClient {
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -54,11 +54,11 @@ export class SprintsClient {
 
     protected processGetSprints(response: HttpResponseBase): Observable<GetSprintData[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -87,9 +87,9 @@ export class SprintsClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -110,11 +110,11 @@ export class SprintsClient {
 
     protected processPutSprint(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -139,9 +139,9 @@ export class SprintsClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -162,11 +162,11 @@ export class SprintsClient {
 
     protected processPostSprint(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -186,12 +186,12 @@ export class SprintsClient {
         let url_ = this.baseUrl + "/api/Sprints/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -213,11 +213,11 @@ export class SprintsClient {
 
     protected processGetSprint(response: HttpResponseBase): Observable<GetSprintData> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -237,12 +237,12 @@ export class SprintsClient {
         let url_ = this.baseUrl + "/api/Sprints/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -264,11 +264,11 @@ export class SprintsClient {
 
     protected processDeleteSprint(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -284,13 +284,65 @@ export class SprintsClient {
         return _observableOf<SuccessResponse>(<any>null);
     }
 
+    getListOfSprints(): Observable<GetSprintsList[]> {
+        let url_ = this.baseUrl + "/api/Sprints/SprintsList";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetListOfSprints(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetListOfSprints(<any>response_);
+                } catch (e) {
+                    return <Observable<GetSprintsList[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetSprintsList[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetListOfSprints(response: HttpResponseBase): Observable<GetSprintsList[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetSprintsList.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetSprintsList[]>(<any>null);
+    }
+
     getSprintStatusList(): Observable<GetSprintStatusData[]> {
         let url_ = this.baseUrl + "/api/Sprints/GetSprintStatus";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -312,11 +364,11 @@ export class SprintsClient {
 
     protected processGetSprintStatusList(response: HttpResponseBase): Observable<GetSprintStatusData[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -354,7 +406,7 @@ export class IssuesClient {
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -376,11 +428,11 @@ export class IssuesClient {
 
     protected processGetIssueList(response: HttpResponseBase): Observable<GetIssueData[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -409,9 +461,9 @@ export class IssuesClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -432,11 +484,11 @@ export class IssuesClient {
 
     protected processPutIssue(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -461,9 +513,9 @@ export class IssuesClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -484,11 +536,11 @@ export class IssuesClient {
 
     protected processPostIssue(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -508,12 +560,12 @@ export class IssuesClient {
         let url_ = this.baseUrl + "/api/Issues/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -535,11 +587,11 @@ export class IssuesClient {
 
     protected processGetIssue(response: HttpResponseBase): Observable<GetIssueData> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -559,12 +611,12 @@ export class IssuesClient {
         let url_ = this.baseUrl + "/api/Issues/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -586,11 +638,11 @@ export class IssuesClient {
 
     protected processDeleteIssue(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -615,9 +667,9 @@ export class IssuesClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -638,11 +690,11 @@ export class IssuesClient {
 
     protected processDragIssue(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -657,7 +709,58 @@ export class IssuesClient {
         }
         return _observableOf<SuccessResponse>(<any>null);
     }
-    
+
+    getPoints(): Observable<number[]> {
+        let url_ = this.baseUrl + "/api/Issues/Points";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPoints(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPoints(<any>response_);
+                } catch (e) {
+                    return <Observable<number[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPoints(response: HttpResponseBase): Observable<number[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(item);
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number[]>(<any>null);
+    }
 }
 
 @Injectable()
@@ -677,7 +780,7 @@ export class IssueStatusClient {
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -699,11 +802,11 @@ export class IssueStatusClient {
 
     protected processGetStatusList(response: HttpResponseBase): Observable<GetIssueStatusData[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -732,9 +835,9 @@ export class IssueStatusClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -755,11 +858,11 @@ export class IssueStatusClient {
 
     protected processPutStatus(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -784,9 +887,9 @@ export class IssueStatusClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -807,11 +910,11 @@ export class IssueStatusClient {
 
     protected processPostStatus(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -831,12 +934,12 @@ export class IssueStatusClient {
         let url_ = this.baseUrl + "/api/IssueStatus/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -858,11 +961,11 @@ export class IssueStatusClient {
 
     protected processGetStatus(response: HttpResponseBase): Observable<GetIssueStatusData> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -882,12 +985,12 @@ export class IssueStatusClient {
         let url_ = this.baseUrl + "/api/IssueStatus/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -909,11 +1012,11 @@ export class IssueStatusClient {
 
     protected processDeleteStatus(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -947,7 +1050,7 @@ export class IssueTypesClient {
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -969,11 +1072,11 @@ export class IssueTypesClient {
 
     protected processGetIssueTypeAll(response: HttpResponseBase): Observable<GetIssueTypeData[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1002,9 +1105,9 @@ export class IssueTypesClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -1025,11 +1128,11 @@ export class IssueTypesClient {
 
     protected processPutIssueType(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1054,9 +1157,9 @@ export class IssueTypesClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -1077,11 +1180,11 @@ export class IssueTypesClient {
 
     protected processPostIssueType(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1101,12 +1204,12 @@ export class IssueTypesClient {
         let url_ = this.baseUrl + "/api/IssueTypes/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -1128,11 +1231,11 @@ export class IssueTypesClient {
 
     protected processGetIssueType(response: HttpResponseBase): Observable<GetIssueTypeData> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1152,12 +1255,12 @@ export class IssueTypesClient {
         let url_ = this.baseUrl + "/api/IssueTypes/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -1179,11 +1282,11 @@ export class IssueTypesClient {
 
     protected processDeleteIssueType(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1220,9 +1323,9 @@ export class RegisterClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -1243,11 +1346,11 @@ export class RegisterClient {
 
     protected processCreateUser(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1263,14 +1366,13 @@ export class RegisterClient {
         return _observableOf<SuccessResponse>(<any>null);
     }
 
-
     getUsers(): Observable<GetUsersData[]> {
         let url_ = this.baseUrl + "/api/Register/Users";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -1289,13 +1391,14 @@ export class RegisterClient {
                 return <Observable<GetUsersData[]>><any>_observableThrow(response_);
         }));
     }
+
     protected processGetUsers(response: HttpResponseBase): Observable<GetUsersData[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1314,7 +1417,6 @@ export class RegisterClient {
         }
         return _observableOf<GetUsersData[]>(<any>null);
     }
-
 }
 
 @Injectable()
@@ -1328,24 +1430,24 @@ export class ReleasesClient {
         this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
     }
 
-    getReleaseList(): Observable<GetReleaseData[]> {
+    getReleases(): Observable<GetReleaseData[]> {
         let url_ = this.baseUrl + "/api/Releases";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetReleaseList(response_);
+            return this.processGetReleases(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetReleaseList(<any>response_);
+                    return this.processGetReleases(<any>response_);
                 } catch (e) {
                     return <Observable<GetReleaseData[]>><any>_observableThrow(e);
                 }
@@ -1354,13 +1456,13 @@ export class ReleasesClient {
         }));
     }
 
-    protected processGetReleaseList(response: HttpResponseBase): Observable<GetReleaseData[]> {
+    protected processGetReleases(response: HttpResponseBase): Observable<GetReleaseData[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1389,9 +1491,9 @@ export class ReleasesClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -1412,11 +1514,11 @@ export class ReleasesClient {
 
     protected processPutRelease(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1441,9 +1543,9 @@ export class ReleasesClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -1464,11 +1566,11 @@ export class ReleasesClient {
 
     protected processPostRelease(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1488,12 +1590,12 @@ export class ReleasesClient {
         let url_ = this.baseUrl + "/api/Releases/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -1515,11 +1617,11 @@ export class ReleasesClient {
 
     protected processGetRelease(response: HttpResponseBase): Observable<GetReleaseData> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1539,12 +1641,12 @@ export class ReleasesClient {
         let url_ = this.baseUrl + "/api/Releases/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -1566,11 +1668,11 @@ export class ReleasesClient {
 
     protected processDeleteRelease(response: HttpResponseBase): Observable<SuccessResponse> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
@@ -1584,6 +1686,58 @@ export class ReleasesClient {
             }));
         }
         return _observableOf<SuccessResponse>(<any>null);
+    }
+
+    getListOfReleases(): Observable<GetReleaseList[]> {
+        let url_ = this.baseUrl + "/api/Releases/ReleaseList";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetListOfReleases(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetListOfReleases(<any>response_);
+                } catch (e) {
+                    return <Observable<GetReleaseList[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetReleaseList[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetListOfReleases(response: HttpResponseBase): Observable<GetReleaseList[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetReleaseList.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetReleaseList[]>(<any>null);
     }
 }
 
@@ -1607,9 +1761,9 @@ export class SignInClient {
     //     let options_ : any = {
     //         body: content_,
     //         observe: "response",
-    //         responseType: "blob",			
+    //         responseType: "blob",
     //         headers: new HttpHeaders({
-    //             "Content-Type": "application/json", 
+    //             "Content-Type": "application/json",
     //             "Accept": "application/octet-stream"
     //         })
     //     };
@@ -1630,11 +1784,11 @@ export class SignInClient {
 
     protected processSignIn(response: HttpResponseBase): Observable<FileResponse | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200 || status === 206) {
             const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
             const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
@@ -1656,6 +1810,7 @@ export class Sprint implements ISprint {
     startDate!: Date;
     endDate!: Date;
     createdBy?: string | undefined;
+    releaseId!:number;
 
     constructor(data?: ISprint) {
         if (data) {
@@ -1674,6 +1829,7 @@ export class Sprint implements ISprint {
             this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
             this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
             this.createdBy = _data["createdBy"];
+            this.releaseId=_data["releaseId"];
         }
     }
 
@@ -1692,6 +1848,7 @@ export class Sprint implements ISprint {
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         data["createdBy"] = this.createdBy;
+        data["releaseId"]=this.releaseId;
         return data; 
     }
 }
@@ -1703,6 +1860,7 @@ export interface ISprint {
     startDate: Date;
     endDate: Date;
     createdBy?: string | undefined;
+    releaseId:number;
 }
 
 export class GetSprintData extends Sprint implements IGetSprintData {
@@ -1842,6 +2000,46 @@ export class CreateSprintRequest extends Sprint implements ICreateSprintRequest 
 export interface ICreateSprintRequest extends ISprint {
 }
 
+export class GetSprintsList implements IGetSprintsList {
+    sprintId!: number;
+    sprintName?: string | undefined;
+
+    constructor(data?: IGetSprintsList) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.sprintId = _data["sprintId"];
+            this.sprintName = _data["sprintName"];
+        }
+    }
+
+    static fromJS(data: any): GetSprintsList {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetSprintsList();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["sprintId"] = this.sprintId;
+        data["sprintName"] = this.sprintName;
+        return data; 
+    }
+}
+
+export interface IGetSprintsList {
+    sprintId: number;
+    sprintName?: string | undefined;
+}
+
 export class SprintStatus implements ISprintStatus {
     sprintStatusName?: string | undefined;
 
@@ -1921,15 +2119,15 @@ export class Issue implements IIssue {
     order!: number;
     issueTypeId!: number;
     attachment?: string | undefined;
-    reporter!: number;
+    reporter?: string | undefined;
     enviroment?: string | undefined;
     browser?: string | undefined;
     acceptanceCriteria?: string | undefined;
     storyPoints!: number;
     epic!: number;
     uat!: boolean;
-    // myProperty!: boolean;
     tImeTracking?: string | undefined;
+    sprintId!:number;
 
     constructor(data?: IIssue) {
         if (data) {
@@ -1958,8 +2156,8 @@ export class Issue implements IIssue {
             this.storyPoints = _data["storyPoints"];
             this.epic = _data["epic"];
             this.uat = _data["uat"];
-            // this.myProperty = _data["myProperty"];
             this.tImeTracking = _data["tImeTracking"];
+            this.sprintId=_data["sprintId"];
         }
     }
 
@@ -1988,8 +2186,8 @@ export class Issue implements IIssue {
         data["storyPoints"] = this.storyPoints;
         data["epic"] = this.epic;
         data["uat"] = this.uat;
-        // data["myProperty"] = this.myProperty;
-        data["tImeTracking"] = this.tImeTracking;
+        data["tImeTracking"] = this.tImeTracking;        
+        data["sprintId"] = this.sprintId;
         return data; 
     }
 }
@@ -2004,21 +2202,21 @@ export interface IIssue {
     order: number;
     issueTypeId: number;
     attachment?: string | undefined;
-    reporter: number;
+    reporter?: string | undefined;
     enviroment?: string | undefined;
     browser?: string | undefined;
     acceptanceCriteria?: string | undefined;
     storyPoints: number;
     epic: number;
     uat: boolean;
-    // myProperty: boolean;
     tImeTracking?: string | undefined;
+    sprintId:number;
 }
 
 export class GetIssueData extends Issue implements IGetIssueData {
     issueId!: number;
     statusName?: string | undefined;
-    issueDetailsId!:number;
+    issueDetailsId!: number;
 
     constructor(data?: IGetIssueData) {
         super(data);
@@ -2029,7 +2227,7 @@ export class GetIssueData extends Issue implements IGetIssueData {
         if (_data) {
             this.issueId = _data["issueId"];
             this.statusName = _data["statusName"];
-            this.issueDetailsId=_data["issueDetailsId"];
+            this.issueDetailsId = _data["issueDetailsId"];
         }
     }
 
@@ -2044,7 +2242,7 @@ export class GetIssueData extends Issue implements IGetIssueData {
         data = typeof data === 'object' ? data : {};
         data["issueId"] = this.issueId;
         data["statusName"] = this.statusName;
-        data["issueDetailsId"]=this.issueDetailsId;
+        data["issueDetailsId"] = this.issueDetailsId;
         super.toJSON(data);
         return data; 
     }
@@ -2053,12 +2251,12 @@ export class GetIssueData extends Issue implements IGetIssueData {
 export interface IGetIssueData extends IIssue {
     issueId: number;
     statusName?: string | undefined;
-    issueDetailsId:number;
+    issueDetailsId: number;
 }
 
 export class EditIssueRequest extends Issue implements IEditIssueRequest {
     issueId!: number;
-    issueDetailsId!:number;
+    issueDetailsId!: number;
 
     constructor(data?: IEditIssueRequest) {
         super(data);
@@ -2068,7 +2266,7 @@ export class EditIssueRequest extends Issue implements IEditIssueRequest {
         super.init(_data);
         if (_data) {
             this.issueId = _data["issueId"];
-            this.issueDetailsId=_data["issueDetailsId"];
+            this.issueDetailsId = _data["issueDetailsId"];
         }
     }
 
@@ -2082,7 +2280,7 @@ export class EditIssueRequest extends Issue implements IEditIssueRequest {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["issueId"] = this.issueId;
-        data["issueDetailsId"]=this.issueDetailsId;
+        data["issueDetailsId"] = this.issueDetailsId;
         super.toJSON(data);
         return data; 
     }
@@ -2090,7 +2288,7 @@ export class EditIssueRequest extends Issue implements IEditIssueRequest {
 
 export interface IEditIssueRequest extends IIssue {
     issueId: number;
-    issueDetailsId:number;
+    issueDetailsId: number;
 }
 
 export class CreateIssueRequest extends Issue implements ICreateIssueRequest {
@@ -2218,7 +2416,6 @@ export interface IIssueStatus {
 
 export class GetIssueStatusData extends IssueStatus implements IGetIssueStatusData {
     issueStatusId!: number;
-
 
     constructor(data?: IGetIssueStatusData) {
         super(data);
@@ -2492,7 +2689,7 @@ export interface IRegisterUserRequest {
 }
 
 export class GetUsersData implements IGetUsersData {
-    id!: string;
+    id?: string | undefined;
     username?: string | undefined;
 
     constructor(data?: IGetUsersData) {
@@ -2527,10 +2724,9 @@ export class GetUsersData implements IGetUsersData {
 }
 
 export interface IGetUsersData {
-    id: string;
+    id?: string | undefined;
     username?: string | undefined;
 }
-
 
 export class Release implements IRelease {
     releaseName?: string | undefined;
@@ -2681,6 +2877,46 @@ export class CreateReleaseRequest extends Release implements ICreateReleaseReque
 export interface ICreateReleaseRequest extends IRelease {
 }
 
+export class GetReleaseList implements IGetReleaseList {
+    releaseId!: number;
+    releaseName?: string | undefined;
+
+    constructor(data?: IGetReleaseList) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.releaseId = _data["releaseId"];
+            this.releaseName = _data["releaseName"];
+        }
+    }
+
+    static fromJS(data: any): GetReleaseList {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetReleaseList();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["releaseId"] = this.releaseId;
+        data["releaseName"] = this.releaseName;
+        return data; 
+    }
+}
+
+export interface IGetReleaseList {
+    releaseId: number;
+    releaseName?: string | undefined;
+}
+
 export class User implements IUser {
     username!: string;
     password!: string;
@@ -2757,10 +2993,10 @@ export interface FileResponse {
 
 export class ApiException extends Error {
     message: string;
-    status: number; 
-    response: string; 
+    status: number;
+    response: string;
     headers: { [key: string]: any; };
-    result: any; 
+    result: any;
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
@@ -2792,12 +3028,12 @@ function blobToText(blob: any): Observable<string> {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader(); 
-            reader.onload = event => { 
+            let reader = new FileReader();
+            reader.onload = event => {
                 observer.next((<any>event.target).result);
                 observer.complete();
             };
-            reader.readAsText(blob); 
+            reader.readAsText(blob);
         }
     });
 }
