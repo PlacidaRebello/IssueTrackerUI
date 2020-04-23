@@ -36,7 +36,7 @@ export class ReleaseComponent implements OnInit {
   }
   
   getReleaseList() {
-    this.release.getReleaseList().subscribe(res=>{     
+    this.release.getReleases().subscribe(res=>{     
        this.dataSource.data = res as GetReleaseData[];        
     });    
   }

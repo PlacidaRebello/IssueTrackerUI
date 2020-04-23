@@ -20,10 +20,11 @@ import{MatCardModule,
   MatDatepickerModule, 
   MatNativeDateModule,
   MatDialogModule,
-  MatSelectModule,MatButtonModule,MatIconModule,MatSnackBarModule
+  MatSelectModule,MatButtonModule,MatIconModule,MatSnackBarModule,MatSlideToggleModule, MatRadioModule
 }  from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ChartsModule} from 'ng2-charts';
 
 import { SprintComponent} from './Components/sprint/sprint.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
@@ -36,6 +37,8 @@ import { UserService } from './services/user.service';
 import { LoginFormComponent } from './Components/login-form/login-form.component';
 import { JwtInterceptor } from './jwt-interceptor';
 import { IssuesComponent } from './Components/issues/issues.component';
+import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issue.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,9 @@ import { IssuesComponent } from './Components/issues/issues.component';
     ReusableModalComponent,
     ReleaseComponent,
     LoginFormComponent,
-    IssuesComponent
+    IssuesComponent,
+    AddEditIssueComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,9 @@ import { IssuesComponent } from './Components/issues/issues.component';
     MatNativeDateModule,
     MatDialogModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule,MatRadioModule,
+    ChartsModule
   ],
   providers: [IssueTrackerService,UserService,{
     provide: HTTP_INTERCEPTORS,
@@ -82,6 +89,6 @@ import { IssuesComponent } from './Components/issues/issues.component';
   }],
   bootstrap: [AppComponent],
   exports:[MatTableModule,MatSortModule,MatPaginatorModule],
-  entryComponents:[AddEditSprintComponent,AddEditReleaseComponent,ReusableModalComponent]
+  entryComponents:[AddEditSprintComponent,AddEditReleaseComponent,AddEditIssueComponent,ReusableModalComponent]
 })
 export class AppModule { }

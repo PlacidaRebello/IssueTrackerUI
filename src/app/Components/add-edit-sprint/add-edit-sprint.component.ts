@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject, Optional } from '@angular/core';
-import { SprintsClient, CreateSprintRequest, EditSprintRequest, GetSprintStatusData}from 'src/app/services/issue-tracker.service';
+import { SprintsClient, CreateSprintRequest, EditSprintRequest, GetSprintStatusData, GetReleaseList, ReleasesClient}from 'src/app/services/issue-tracker.service';
 import { FormGroup,FormControl, Validators ,FormBuilder} from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
@@ -22,7 +22,8 @@ export class AddEditSprintComponent implements OnInit {
   sprintForm:FormGroup;
   AddButton=true;
   sprint:SprintsClient = new SprintsClient(this.http,""); 
-  public SprintStatus;
+  release:ReleasesClient= new ReleasesClient(this.http,"");
+  public SprintStatus;releases;
 
   constructor(private location: Location,private fb:FormBuilder,
             public dialogRef: MatDialogRef<AddEditSprintComponent>,private _snackBar:MatSnackBar,
@@ -49,6 +50,10 @@ export class AddEditSprintComponent implements OnInit {
     this.SprintStatus=res as GetSprintStatusData[];   
   });
 
+  releaseList=this.release.getListOfReleases().subscribe(res=>{
+     this.releases=res as GetReleaseList[];
+  });
+
   createForm()
   {
     this.sprintForm=this.fb.group({      
@@ -59,7 +64,8 @@ export class AddEditSprintComponent implements OnInit {
       endDate:['',Validators.required],
       createdBy:[''],
       sprintStatusId:[''],
-      sprintStatusName:''
+      sprintStatusName:'',
+      releaseId:['',Validators.required]
     });     
   }
 
@@ -67,7 +73,7 @@ export class AddEditSprintComponent implements OnInit {
   {
     if(this.editMode){  
        this.sprint.getSprint(this.data.id).subscribe(res=>{   
-         this.sprintForm.setValue(res);
+         this.sprintForm.setValue(res);         
          //mindate validation gives error if editing after the date entered
          const startdate=res.startDate;
          this.minDate=startdate;
@@ -109,6 +115,8 @@ export class AddEditSprintComponent implements OnInit {
        newSprint.startDate =formvalues.startDate;
        newSprint.endDate = formvalues.endDate;
        newSprint.sprintStatusId=formvalues.sprintStatusId;
+       newSprint.releaseId=formvalues.releaseId;
+
        this.sprint.postSprint(newSprint).subscribe(res=>{
         this._snackBar.open(res.message,"OK",{
           duration:2000,
@@ -133,6 +141,7 @@ export class AddEditSprintComponent implements OnInit {
       updateSprint.endDate = formvalues.endDate;
       updateSprint.sprintId=parseInt(this.sprintId);
       updateSprint.sprintStatusId=formvalues.sprintStatusId;
+      updateSprint.releaseId=formvalues.releaseId;
 
       this.sprint.putSprint(updateSprint).subscribe(res=>{
         this._snackBar.open(res.message,"OK",{
