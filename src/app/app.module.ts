@@ -39,6 +39,7 @@ import { JwtInterceptor } from './jwt-interceptor';
 import { IssuesComponent } from './Components/issues/issues.component';
 import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issue.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { ManagementDashBoardComponent } from './Components/management-dash-board/management-dash-board.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
     LoginFormComponent,
     IssuesComponent,
     AddEditIssueComponent,
-    DashboardComponent
+    DashboardComponent,
+    ManagementDashBoardComponent
   ],
   imports: [
     BrowserModule,

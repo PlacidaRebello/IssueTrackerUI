@@ -30,8 +30,7 @@ export class IssuesComponent implements OnInit{
       this.getIssuesList();
   }
 
-  getIssuesList()  {
-   
+  getIssuesList()  {   
     this.issues.getIssueList().subscribe(res=>{  
       this.issueList=res as GetIssueData[];  
       this.SortIssues(this.issueList);  

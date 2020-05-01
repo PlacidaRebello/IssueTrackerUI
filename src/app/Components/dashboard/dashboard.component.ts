@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IssuesClient } from 'src/app/services/issue-tracker.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  
+  baseurl="https://localhost:44322";
+  issues:IssuesClient = new IssuesClient(this.http,this.baseurl); 
+  public pieChartData;
+  public chartReady=false;
+  constructor(private route:ActivatedRoute,private router:Router,private http:HttpClient) { }
 
   ngOnInit() {
+    this.getData();
+  }
+  getData(){
+    this.issues.getPoints().subscribe(res=>{
+        this.pieChartData=res as number[];
+        console.log(this.pieChartData);
+        this.chartReady=true;
+    });
   }
 
   chartOptions={
@@ -21,6 +37,4 @@ export class DashboardComponent implements OnInit {
   }
 
   labels=['Story','Bug','Task'];
-
-  pieChartData=[30,20,50];
 }
