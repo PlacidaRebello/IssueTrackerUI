@@ -1,16 +1,21 @@
-<!-- <div style="display: block;"  *ngIf="chartReady">
-    <canvas baseChart
-         [data]="pieChartData"
-         [labels]="label"
-         [chartType]="'pie'"
-         [options]="pieChartOptions"></canvas>
-</div> -->
+
 <div style="display: block;" *ngIf="chartReady">
-  <canvas baseChart
-  [data]="pieChartData"
-  [labels]="label"
-  [chartType]="'pie'"
-  [options]="pieChartOptions"></canvas>
+     <canvas baseChart
+             [data]="pieChartData"
+             [labels]="label"
+             [chartType]="'pie'"
+             [options]="pieChartOptions"></canvas>
+</div>
+
+<div>
+  <div style="display: block" *ngIf="barChartReady">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [chartType]="'bar'">
+    </canvas>
+  </div>
 </div>
 
 <div style="display:block;" >

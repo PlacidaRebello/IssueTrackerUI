@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
-import { IssuesClient, GetIssueData, ManagementClient, DragDropIssueRequest, GetIssueCountByType } from 'src/app/services/issue-tracker.service';
+import { IssuesClient, GetIssueData, ManagementClient, DragDropIssueRequest, GetIssueCountByType, GetDailyBurnDownData } from 'src/app/services/issue-tracker.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
@@ -16,15 +16,18 @@ export class ManagementDashBoardComponent implements OnInit {
   baseurl="https://localhost:44322";
   issues:IssuesClient = new IssuesClient(this.http,this.baseurl); 
   management:ManagementClient= new ManagementClient(this.http,this.baseurl);
-  public pieChartData=[];issuesDt;label=[];pieChartOptions;
+  public pieChartData=[];issuesDt;label=[];pieChartOptions;data1=[];data2=[];
+  public barChartOptions;barChartLabels=[];barChartData;
   public issuesList:GetIssueData[]=[];
   public issueCount:GetIssueCountByType[]=[];
-  public chartReady=false;
+  public burnDownData:GetDailyBurnDownData[]=[];
+  public chartReady=false;barChartReady=false;
   constructor(private route:ActivatedRoute,private router:Router,private _snackBar:MatSnackBar,private matDialog:MatDialog,private http:HttpClient) { }
 
   ngOnInit() {
     this.getIssuesList();
     this.getIssueCountForPieChart();
+    this.getBurnDownChartData();
   }
 
   getIssuesList()  {   
@@ -40,6 +43,12 @@ export class ManagementDashBoardComponent implements OnInit {
     })
   }
 
+  getBurnDownChartData(){
+    this.management.getDailyBurnDowns().subscribe(res=>{
+      this.burnDownData=res as GetDailyBurnDownData[];
+      this.bindBarChart(this.burnDownData);
+    })
+  }
   bindPieChart(issueCount){
      this.pieChartOptions={
       responsive:true,
@@ -53,7 +62,24 @@ export class ManagementDashBoardComponent implements OnInit {
     this.chartReady=true;
   }
  
-  
+  bindBarChart(burnDownData){
+     this.barChartOptions = {
+      scaleShowVerticalLines: false,
+      responsive: true
+    };
+    var i:number;
+    for(i=0;i<burnDownData.length;i++){
+      this.barChartLabels.push(burnDownData[i].date);
+      this.data1.push(burnDownData[i].pointsCompleted);
+      this.data2.push(burnDownData[i].pointsPending);
+    } 
+     this.barChartData = [
+      {data: this.data1, label: 'Completed'},
+      {data: this.data2, label: 'Pending'}
+    ];
+    this.barChartReady=true;
+  }
+
   drop(event: CdkDragDrop<string[]>) {    
     let updateIssue:DragDropIssueRequest=new DragDropIssueRequest();    
     this.issuesDt=event.container.data;
