@@ -3,55 +3,79 @@ import{Subscription} from 'rxjs';
 import {Router,ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
 // import 'rxjs/add/operator/finally';
-import { finalize } from 'rxjs/operators';
+import { finalize, first } from 'rxjs/operators';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { CreateSignInUserRequest } from '../CreateSignInUserRequest';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit { 
 
-  private subscription: Subscription;
-
-  brandNew: boolean;
-  errors: string;
-  isRequesting: boolean;
-  submitted: boolean = false;
-  credentials:CreateSignInUserRequest= { Username: '', Password: ''};
-  token:string;
-  expiration:Date;
-
-  constructor(private userService:UserService,private router:Router,private activatedRoute:ActivatedRoute) { }
-
-  ngOnInit() {
-    this.subscription=this.activatedRoute.queryParams.subscribe(
-      (param:any)=>{
-        this.brandNew=param['brandNew'],
-        this.credentials.Username=param['userName']
-      });
-  }
-
-  login({ value, valid }: { value: CreateSignInUserRequest, valid: boolean }) {
-    this.submitted = true;
-    this.isRequesting = true;
-    this.errors='';
-    if (valid) {
-      this.userService.LoginMethod(value)
-        .pipe(finalize(() => this.isRequesting = false))
-        .subscribe(result => {  
-            if (result) {
-              this.router.navigate(['/Sprints']);             
-             }
-            },error =>
-            this.errors = error);
+  loginForm: FormGroup;
+    loading = false;
+    submitted = false;
+    returnUrl: string;
+    errors: string;
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+        private userService: UserService
+    ) {
+        // redirect to home if already logged in
+        // if (this.authenticationService.currentUserValue) {
+        //     this.router.navigate(['/']);
+        // }
     }
+
+    ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
+    // convenience getter for easy access to form fields
+    get f() { return this.loginForm.controls; }
+
+    onSubmit() {
+        this.submitted = true;
+        this.errors='';
+        // reset alerts on submit
+        // this.alertService.clear();
+        // stop here if form is invalid
+        if (this.loginForm.invalid) {
+            return;
+        }
+        this.loading = true;
+        this.userService.LoginMethod(this.loginForm.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                  if (data) {
+                      this.router.navigate(['/Management']);       
+                     }
+                },
+                error => {
+                  if(error.error.status==401){
+                      this.errors="Invalid username and password "; }
+                    // this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+  
+ public hasError = (controlName: string, errorName: string) =>{
+    return this.loginForm.controls[controlName].hasError(errorName);
   }
-
+  
 }
-
 
 
 

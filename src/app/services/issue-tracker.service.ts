@@ -4,15 +4,14 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IssueTrackerService {
-
   constructor() { }
 }
-
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
@@ -22,9 +21,9 @@ export class SprintsClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getSprints(): Observable<GetSprintData[]> {
@@ -396,9 +395,9 @@ export class IssuesClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getIssueList(): Observable<GetIssueData[]> {
@@ -771,9 +770,9 @@ export class IssueStatusClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getStatusList(): Observable<GetIssueStatusData[]> {
@@ -1041,9 +1040,9 @@ export class IssueTypesClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getIssueTypeAll(): Observable<GetIssueTypeData[]> {
@@ -1312,9 +1311,9 @@ export class ManagementClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getInitialIssueList(): Observable<GetIssueData[]> {
@@ -1648,9 +1647,9 @@ export class ReleasesClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getReleases(): Observable<GetReleaseData[]> {
@@ -1970,9 +1969,9 @@ export class SignInClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     // signIn(userRequest: CreateSignInUserRequest): Observable<FileResponse | null> {
@@ -2166,7 +2165,7 @@ export interface IGetIssueCountByType {
 export class GetDailyBurnDownData implements IGetDailyBurnDownData {
     dailyBurnDownId!: number;
     sprintId!: number;
-    date:Date;
+    date:string;
     pointsCompleted!:number;
     pointsPending!:number;
 
@@ -2210,7 +2209,7 @@ export class GetDailyBurnDownData implements IGetDailyBurnDownData {
 export interface IGetDailyBurnDownData {
     dailyBurnDownId: number;
     sprintId: number;
-    date:Date;
+    date:string;
     pointsCompleted:number;
     pointsPending:number;
 }
@@ -2441,7 +2440,7 @@ export class Issue implements IIssue {
     storyPoints!: number;
     epic!: number;
     uat!: boolean;
-    tImeTracking?: string | undefined;
+    timeTracking?: string | undefined;
     sprintId!:number;
 
     constructor(data?: IIssue) {
@@ -2471,7 +2470,7 @@ export class Issue implements IIssue {
             this.storyPoints = _data["storyPoints"];
             this.epic = _data["epic"];
             this.uat = _data["uat"];
-            this.tImeTracking = _data["tImeTracking"];
+            this.timeTracking = _data["timeTracking"];
             this.sprintId=_data["sprintId"];
         }
     }
@@ -2501,7 +2500,7 @@ export class Issue implements IIssue {
         data["storyPoints"] = this.storyPoints;
         data["epic"] = this.epic;
         data["uat"] = this.uat;
-        data["tImeTracking"] = this.tImeTracking;        
+        data["timeTracking"] = this.timeTracking;        
         data["sprintId"] = this.sprintId;
         return data; 
     }
@@ -2524,7 +2523,7 @@ export interface IIssue {
     storyPoints: number;
     epic: number;
     uat: boolean;
-    tImeTracking?: string | undefined;
+    timeTracking?: string | undefined;
     sprintId:number;
 }
 

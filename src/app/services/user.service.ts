@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpRequest ,HttpHeaders} from '@angular/comm
  import { BehaviorSubject, Observable } from 'rxjs'; 
 import { map } from 'rxjs/operators';
 import { CreateSignInUserRequest } from '../Components/CreateSignInUserRequest';
+import { environment } from 'src/environments/environment';
 
 // Add the RxJS Observable operators we need in this app.
 //import '../../rxjs-operators';
@@ -20,8 +21,6 @@ export class UserService  {
   // Observable navItem stream
   authNavStatus$ = this._authNavStatusSource.asObservable();
   private loggedIn = false;
-
-
   
   private currentUserSubject: BehaviorSubject<string>;  
   public currentUser: Observable<any>;
@@ -32,7 +31,7 @@ export class UserService  {
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
     // header component resulting in authed user nav links disappearing despite the fact user is still logged in
     this._authNavStatusSource.next(this.loggedIn);
-    this.baseUrl = "https://localhost:44322";
+    this.baseUrl =environment.baseUrl;
 
     
   // this.currentUserSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('auth_token')));
@@ -68,16 +67,17 @@ export class UserService  {
   // }
 
   LoginMethod(createSignInUserRequest:CreateSignInUserRequest) :Observable<any>{ 
-    let url="https://localhost:44322/api/SignIn/";
-    
+    // let url="https://localhost:44322/api/SignIn/";
+    let url = this.baseUrl + "/api/SignIn";
+
     return this.http.post<any>(url,createSignInUserRequest).
-    pipe(map(res => {      
-           localStorage.setItem('auth_token', res.token);
-           console.log('token-',res.token);
-          this.loggedIn = true;
-         // this._authNavStatusSource.next(true);
-          //this.currentUserSubject.next(res);
-          return true;}));
+              pipe(map(res => {      
+                     localStorage.setItem('auth_token', res.token);
+                     console.log('token-',res.token);
+                    this.loggedIn = true;
+                   // this._authNavStatusSource.next(true);
+                    //this.currentUserSubject.next(res);
+                    return true;}));
   }
 
   logout() {

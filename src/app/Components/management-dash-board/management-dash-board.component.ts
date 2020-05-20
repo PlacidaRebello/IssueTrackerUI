@@ -14,15 +14,16 @@ import { AddEditIssueComponent } from '../add-edit-issue/add-edit-issue.componen
 export class ManagementDashBoardComponent implements OnInit {
 
   baseurl="https://localhost:44322";
-  issues:IssuesClient = new IssuesClient(this.http,this.baseurl); 
-  management:ManagementClient= new ManagementClient(this.http,this.baseurl);
+  issues:IssuesClient = new IssuesClient(this.http); 
+  management:ManagementClient= new ManagementClient(this.http);
   public pieChartData=[];issuesDt;label=[];pieChartOptions;data1=[];data2=[];
-  public barChartOptions;barChartLabels=[];barChartData;
+  public barChartOptions;barChartLabels:string[]=[];barChartData;
   public issuesList:GetIssueData[]=[];
   public issueCount:GetIssueCountByType[]=[];
   public burnDownData:GetDailyBurnDownData[]=[];
   public chartReady=false;barChartReady=false;
-  constructor(private route:ActivatedRoute,private router:Router,private _snackBar:MatSnackBar,private matDialog:MatDialog,private http:HttpClient) { }
+  constructor(private route:ActivatedRoute,private router:Router,private _snackBar:MatSnackBar,
+    private matDialog:MatDialog,private http:HttpClient) { }
 
   ngOnInit() {
     this.getIssuesList();

@@ -1,5 +1,5 @@
 
-<div style="display: block;" *ngIf="chartReady">
+<div style="float: left;min-width: 50%;" *ngIf="chartReady">
      <canvas baseChart
              [data]="pieChartData"
              [labels]="label"
@@ -7,8 +7,8 @@
              [options]="pieChartOptions"></canvas>
 </div>
 
-<div>
-  <div style="display: block" *ngIf="barChartReady">
+
+  <div style="float: left;min-width: 50%;" *ngIf="barChartReady">
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="barChartLabels"
@@ -16,7 +16,7 @@
             [chartType]="'bar'">
     </canvas>
   </div>
-</div>
+
 
 <div style="display:block;" >
   <div class="example-container">

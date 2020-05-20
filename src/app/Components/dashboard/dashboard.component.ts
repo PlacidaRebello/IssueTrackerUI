@@ -9,10 +9,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   
-  baseurl="https://localhost:44322";
-  issues:IssuesClient = new IssuesClient(this.http,this.baseurl); 
+  issues:IssuesClient = new IssuesClient(this.http); 
   public pieChartData;
   public chartReady=false;
   constructor(private route:ActivatedRoute,private router:Router,private http:HttpClient) { }
