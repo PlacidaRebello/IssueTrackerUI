@@ -13,7 +13,7 @@
                             username is required                    
                   </mat-error>
                </mat-form-field>
-            <br>
+               <br>
                <mat-form-field class="full-width">
                   <mat-label>Password</mat-label>
                   <input  matInput type="password" formControlName="password" class="form-control" >
@@ -26,7 +26,13 @@
          </mat-card-actions>
          <div *ngIf="errors" class="alert alert-danger" role="alert">
             <strong>Oops!</strong> {{errors}}
-          </div>
+         </div>
+         <div>
+            <a routerLink="/ManagementDashboard" class="btn btn-link">NewUser?</a>
+            <a routerLink="/Register" class="btn btn-link"> Sign-Up</a>
+            <br>Forgot Password
+            <a routerLink="/" class="btn btn-link">click-here</a>
+         </div>     
       </mat-card>        
 </div>
 

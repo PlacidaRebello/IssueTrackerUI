@@ -7,6 +7,7 @@ import { LoginFormComponent } from './Components/login-form/login-form.component
 import { IssuesComponent } from './Components/issues/issues.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ManagementDashBoardComponent } from './Components/management-dash-board/management-dash-board.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 const routes: Routes = [
   {path:"Sprints",component:SprintComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:"Issues",component:IssuesComponent},
   {path:"Login",component:LoginFormComponent},
   {path:"Dashboard",component:DashboardComponent},
-  {path:"Management",component:ManagementDashBoardComponent}
+  {path:"Management",component:ManagementDashBoardComponent},
+  {path:"Register", component:RegisterComponent}
 ];
 
 @NgModule({

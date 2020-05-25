@@ -40,6 +40,7 @@ import { IssuesComponent } from './Components/issues/issues.component';
 import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issue.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ManagementDashBoardComponent } from './Components/management-dash-board/management-dash-board.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ManagementDashBoardComponent } from './Components/management-dash-board
     IssuesComponent,
     AddEditIssueComponent,
     DashboardComponent,
-    ManagementDashBoardComponent
+    ManagementDashBoardComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
