@@ -65,7 +65,7 @@ export class LoginFormComponent implements OnInit {
                 },
                 error => {
                   if(error.error.status==401){
-                      this.errors="Invalid username and password "; }
+                      this.errors="Invalid username or password "; }
                     // this.alertService.error(error);
                     this.loading = false;
                 });

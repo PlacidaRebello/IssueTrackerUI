@@ -1,5 +1,6 @@
 import { Component, OnInit,Inject} from '@angular/core';
-import { IssuesClient,IssueStatusClient, CreateIssueRequest, EditIssueRequest, GetIssueData, GetIssueStatusData, GetSprintsList,IssueTypesClient, GetIssueTypeData, RegisterClient, GetUsersData, SprintsClient}from 'src/app/services/issue-tracker.service';
+import { IssuesClient,IssueStatusClient, CreateIssueRequest, EditIssueRequest, GetIssueData, GetIssueStatusData, GetSprintsList
+  ,IssueTypesClient, GetIssueTypeData, RegisterClient, GetUsersData, SprintsClient}from 'src/app/services/issue-tracker.service';
 import { FormGroup,FormControl, Validators ,FormBuilder} from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar, MatDialogConfig, MatDialog } from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';

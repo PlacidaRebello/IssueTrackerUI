@@ -6,8 +6,8 @@
         <form class="my-form" [formGroup]="registrationForm">
           <mat-form-field class="full-width">
             <mat-label>First Name</mat-label>
-            <input  matInput  placeholder="Username"  name="username" formControlName="username"  >
-            <mat-error *ngIf="hasError('username','required')">
+            <input  matInput  placeholder="Username"  name="username" formControlName="userName"  >
+            <mat-error *ngIf="hasError('userName','required')">
                username is required                    
             </mat-error>
             
@@ -24,18 +24,18 @@
          </mat-form-field>
          <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input  matInput  placeholder="Password" formControlName="password"   name="password">            
+            <input  matInput type="password" placeholder="Password" formControlName="password"   name="password">            
             <mat-error *ngIf="hasError('password','required')">password is required</mat-error>
          </mat-form-field>
          <mat-form-field class="full-width">
             <mat-label>Confirm Password</mat-label>
-            <input  matInput  placeholder="Confirm Password" formControlName="confirmPassword"  name="password">
-            <mat-error *ngIf="hasError('confirmPassword','required')">
+            <input  matInput type="password"  placeholder="Confirm Password" formControlName="confirmPassword"  name="password">
+            <mat-error *ngIf="hasError('confirmPassword','required') ">
                Confirm Password is required
             </mat-error> 
-            <mat-error *ngIf="f.confirmPassword.errors.confirmedValidator">
+            <!-- <mat-error *ngIf="f.confirmPassword.errors.confirmedValidator">
                Password and confirm password do not match
-            </mat-error> 
+            </mat-error>  -->
          </mat-form-field>
         </form>
      </mat-card-content>

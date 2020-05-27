@@ -22,13 +22,14 @@
             </form>
          </mat-card-content>
          <mat-card-actions>
-            <button mat-raised-button  color="primary"  (click)="onSubmit()">LOGIN</button>
+            <button mat-raised-button  color="primary" [disabled]="!loginForm.valid"  (click)="onSubmit()">LOGIN</button>
          </mat-card-actions>
          <div *ngIf="errors" class="alert alert-danger" role="alert">
             <strong>Oops!</strong> {{errors}}
          </div>
          <div>
-            <a routerLink="/ManagementDashboard" class="btn btn-link">NewUser?</a>
+            <!-- <a routerLink="/ManagementDashboard" class="btn btn-link">NewUser?</a> -->
+            <br>NewUser?
             <a routerLink="/Register" class="btn btn-link"> Sign-Up</a>
             <br>Forgot Password
             <a routerLink="/" class="btn btn-link">click-here</a>
