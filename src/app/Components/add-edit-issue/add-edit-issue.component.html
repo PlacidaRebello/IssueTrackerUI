@@ -42,8 +42,8 @@
               <mat-error *ngIf="hasError('sprintId','required')">sprint is required</mat-error>             
             </mat-form-field> 
 
-            <mat-form-field *ngIf="selectedType===5">
-              <input matInput type="text" placeholder="TimeTracking" formControlName="tImeTracking" >
+            <mat-form-field *ngIf="selectedType===3">
+              <input matInput type="text" placeholder="TimeTracking" formControlName="timeTracking" >
               <mat-hint align="start">Not less then 3 characters .</mat-hint>
             </mat-form-field>
         </div>
@@ -80,7 +80,7 @@
               </mat-form-field> 
       </div>
       <br>          
-      <div aria-colcount="4" *ngIf="selectedType===3">      
+      <div aria-colcount="4" *ngIf="selectedType===1">      
               <mat-form-field>
                 <input matInput type="text" placeholder="Attachment" formControlName="attachment" >
                 <mat-hint align="start">Not less then 3 characters .</mat-hint>
@@ -106,7 +106,7 @@
               </mat-form-field>
        </div>
        <br>
-       <div aria-colcount="4" *ngIf="selectedType===4">
+       <div aria-colcount="4" *ngIf="selectedType===2">
               <mat-form-field>
                 <input matInput type="text" placeholder="AcceptanceCriteria" formControlName="acceptanceCriteria" >
                 <mat-hint align="start">Not less then 3 characters .</mat-hint>

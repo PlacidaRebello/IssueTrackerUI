@@ -13,8 +13,7 @@ import { AddEditIssueComponent } from '../add-edit-issue/add-edit-issue.componen
 })
 export class IssuesComponent implements OnInit{
    
-  baseurl="https://localhost:44322";
-  issues:IssuesClient = new IssuesClient(this.http,this.baseurl); 
+  issues:IssuesClient = new IssuesClient(this.http); 
   public issueList;  
   public TodoList:GetIssueData[]=[];
   public InProgressList:GetIssueData[]=[];
@@ -30,8 +29,7 @@ export class IssuesComponent implements OnInit{
       this.getIssuesList();
   }
 
-  getIssuesList()  {
-   
+  getIssuesList()  {   
     this.issues.getIssueList().subscribe(res=>{  
       this.issueList=res as GetIssueData[];  
       this.SortIssues(this.issueList);  

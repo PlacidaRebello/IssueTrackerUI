@@ -11,9 +11,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ReusableModalComponent implements OnInit {
   Id:number=0;
-  sprint:SprintsClient = new SprintsClient(this.http,"");
-  release:ReleasesClient=new ReleasesClient(this.http,"");
-  issue:IssuesClient=new IssuesClient(this.http,"");
+  sprint:SprintsClient = new SprintsClient(this.http);
+  release:ReleasesClient=new ReleasesClient(this.http);
+  issue:IssuesClient=new IssuesClient(this.http);
   
   constructor(  public dialogRef: MatDialogRef<ReusableModalComponent>,
     @Inject(MAT_DIALOG_DATA) public modalData: any,private userService:UserService,private _snackBar:MatSnackBar,private http:HttpClient)

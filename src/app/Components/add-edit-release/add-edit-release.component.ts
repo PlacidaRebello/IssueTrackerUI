@@ -21,8 +21,8 @@ export class AddEditReleaseComponent implements OnInit {
   pageTitle: string;
   releaseForm:FormGroup;
   AddButton=true;
-  release:ReleasesClient = new ReleasesClient(this.http,""); 
-  sprint:SprintsClient= new  SprintsClient(this.http,"");
+  release:ReleasesClient = new ReleasesClient(this.http); 
+  sprint:SprintsClient= new  SprintsClient(this.http);
   public SprintStatus;
 
   constructor(private location: Location,private fb:FormBuilder,

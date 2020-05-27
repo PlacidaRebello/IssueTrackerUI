@@ -1,0 +1,39 @@
+
+<mat-toolbar>  
+  <span>Dashboard</span>
+</mat-toolbar>
+<div style="float: left;min-width: 50%;" *ngIf="chartReady">
+     <canvas baseChart
+             [data]="pieChartData"
+             [labels]="label"
+             [chartType]="'pie'"
+             [options]="pieChartOptions"></canvas>
+</div>
+<div style="float: left;min-width: 50%;" *ngIf="barChartReady">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [chartType]="'bar'">
+    </canvas>
+</div>
+<div style="display:block;" >
+  <div class="example-container">
+    <h2>Issues List</h2>
+       <div class="example-list"
+           cdkDropList
+           #issueList="cdkDropList"
+           [cdkDropListData]="issuesList"         
+           (cdkDropListDropped)="drop($event)">      
+           <mat-card *ngFor="let issue of issuesList"  class="example-box" cdkDrag (click)="redirectToUpdatePage(issue.issueId)">
+             <mat-card-header>
+               <mat-card-title>{{issue.subject}}</mat-card-title>
+               <mat-card-subtitle>{{issue.description}}</mat-card-subtitle>
+             </mat-card-header>
+             <mat-card-content>
+                 <p>{{issue.tags}}</p>
+             </mat-card-content>
+           </mat-card>
+       </div>
+  </div>
+</div>

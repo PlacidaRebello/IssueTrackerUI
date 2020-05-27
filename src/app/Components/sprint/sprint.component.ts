@@ -18,11 +18,11 @@ export class SprintComponent implements OnInit ,AfterViewInit{
   public dataSource = new MatTableDataSource<GetSprintData>();
  // private  http:HttpClient;
   public displayedColumns = ['sprintName','sprintPoints', 'startDate','endDate','sprintStatusName','update', 'delete'];
-  baseurl="https://localhost:44322";
+ 
 
    @ViewChild(MatSort,{static:false}) sort: MatSort;
    @ViewChild(MatPaginator,{static:false}) paginator: MatPaginator;     
-   sprint:SprintsClient = new SprintsClient(this.http,this.baseurl); 
+   sprint:SprintsClient = new SprintsClient(this.http); 
 
   constructor(private route:ActivatedRoute,private router:Router,private matDialog:MatDialog,
     private _snackBar:MatSnackBar,private http:HttpClient)

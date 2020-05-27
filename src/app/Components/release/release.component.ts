@@ -18,7 +18,7 @@ export class ReleaseComponent implements OnInit {
   public dataSource = new MatTableDataSource<GetReleaseData>();
   
   public displayedColumns = ['releaseName', 'startDate','endDate','sprintStatusName','update','delete'];
-  release:ReleasesClient = new ReleasesClient(this.http,"");
+  release:ReleasesClient = new ReleasesClient(this.http);
 
    @ViewChild(MatSort,{static:false}) sort: MatSort;
    @ViewChild(MatPaginator,{static:false}) paginator: MatPaginator;   

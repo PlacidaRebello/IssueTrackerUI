@@ -3,15 +3,15 @@ import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { DecimalPipe } from '@angular/common';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IssueTrackerService {
-
   constructor() { }
 }
-
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
@@ -21,9 +21,9 @@ export class SprintsClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getSprints(): Observable<GetSprintData[]> {
@@ -395,9 +395,9 @@ export class IssuesClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getIssueList(): Observable<GetIssueData[]> {
@@ -763,15 +763,16 @@ export class IssuesClient {
     }
 }
 
+
 @Injectable()
 export class IssueStatusClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getStatusList(): Observable<GetIssueStatusData[]> {
@@ -1039,9 +1040,9 @@ export class IssueTypesClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getIssueTypeAll(): Observable<GetIssueTypeData[]> {
@@ -1303,6 +1304,227 @@ export class IssueTypesClient {
     }
 }
 
+
+@Injectable()
+export class ManagementClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient) {
+        this.http = http;
+        this.baseUrl = environment.baseUrl;
+    }
+
+    getInitialIssueList(): Observable<GetIssueData[]> {
+        let url_ = this.baseUrl + "/api/Management";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetInitialIssueList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetInitialIssueList(<any>response_);
+                } catch (e) {
+                    return <Observable<GetIssueData[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetIssueData[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetInitialIssueList(response: HttpResponseBase): Observable<GetIssueData[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetIssueData.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetIssueData[]>(<any>null);
+    }
+
+    getIssuesCountByType(): Observable<GetIssueCountByType[]> {
+        let url_ = this.baseUrl + "/api/Management/GetIssuesCountByType";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetIssuesCountByType(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetIssuesCountByType(<any>response_);
+                } catch (e) {
+                    return <Observable<GetIssueCountByType[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetIssueCountByType[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetIssuesCountByType(response: HttpResponseBase): Observable<GetIssueCountByType[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetIssueCountByType.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetIssueCountByType[]>(<any>null);
+    }
+
+    updateIssuePriority(dragDropIssue: DragDropIssueRequest): Observable<SuccessResponse> {
+        let url_ = this.baseUrl + "/api/Management";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(dragDropIssue);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateIssuePriority(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateIssuePriority(<any>response_);
+                } catch (e) {
+                    return <Observable<SuccessResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SuccessResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateIssuePriority(response: HttpResponseBase): Observable<SuccessResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SuccessResponse.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SuccessResponse>(<any>null);
+    }
+
+    getDailyBurnDowns(): Observable<GetDailyBurnDownData[]> {
+        let url_ = this.baseUrl + "/api/Management/GetBurnDownData";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDailyBurnDowns(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDailyBurnDowns(<any>response_);
+                } catch (e) {
+                    return <Observable<GetDailyBurnDownData[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetDailyBurnDownData[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDailyBurnDowns(response: HttpResponseBase): Observable<GetDailyBurnDownData[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetDailyBurnDownData.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetDailyBurnDownData[]>(<any>null);
+    }
+}
+
 @Injectable()
 export class RegisterClient {
     private http: HttpClient;
@@ -1425,9 +1647,9 @@ export class ReleasesClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     getReleases(): Observable<GetReleaseData[]> {
@@ -1747,9 +1969,9 @@ export class SignInClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl = environment.baseUrl;
     }
 
     // signIn(userRequest: CreateSignInUserRequest): Observable<FileResponse | null> {
@@ -1898,6 +2120,98 @@ export class GetSprintData extends Sprint implements IGetSprintData {
 export interface IGetSprintData extends ISprint {
     sprintId: number;
     sprintStatusName?: string | undefined;
+}
+
+export class GetIssueCountByType implements IGetIssueCountByType {
+    issueCount!: number;
+    typeName?: string | undefined;
+
+    constructor(data?: IGetIssueCountByType) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.issueCount = _data["issueCount"];
+            this.typeName = _data["typeName"];
+        }
+    }
+
+    static fromJS(data: any): GetIssueCountByType {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetIssueCountByType();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["issueCount"] = this.issueCount;
+        data["typeName"] = this.typeName;
+        return data; 
+    }
+}
+
+export interface IGetIssueCountByType {
+    issueCount: number;
+    typeName?: string | undefined;
+}
+
+export class GetDailyBurnDownData implements IGetDailyBurnDownData {
+    dailyBurnDownId!: number;
+    sprintId!: number;
+    date:string;
+    pointsCompleted!:number;
+    pointsPending!:number;
+
+    constructor(data?: IGetDailyBurnDownData) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.dailyBurnDownId = _data["dailyBurnDownId"];
+            this.sprintId = _data["sprintId"];            
+            this.date = _data["date"];
+            this.pointsCompleted = _data["pointsCompleted"];
+            this.pointsPending = _data["pointsPending"];
+        }
+    }
+
+    static fromJS(data: any): GetDailyBurnDownData {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetDailyBurnDownData();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["dailyBurnDownId"] = this.dailyBurnDownId;
+        data["sprintId"] = this.sprintId;
+        data["date"] = this.date;
+        data["pointsCompleted"] = this.pointsCompleted;
+        data["pointsPending"] = this.pointsPending;
+        return data; 
+    }
+}
+
+export interface IGetDailyBurnDownData {
+    dailyBurnDownId: number;
+    sprintId: number;
+    date:string;
+    pointsCompleted:number;
+    pointsPending:number;
 }
 
 export class SuccessResponse implements ISuccessResponse {
@@ -2126,7 +2440,7 @@ export class Issue implements IIssue {
     storyPoints!: number;
     epic!: number;
     uat!: boolean;
-    tImeTracking?: string | undefined;
+    timeTracking?: string | undefined;
     sprintId!:number;
 
     constructor(data?: IIssue) {
@@ -2156,7 +2470,7 @@ export class Issue implements IIssue {
             this.storyPoints = _data["storyPoints"];
             this.epic = _data["epic"];
             this.uat = _data["uat"];
-            this.tImeTracking = _data["tImeTracking"];
+            this.timeTracking = _data["timeTracking"];
             this.sprintId=_data["sprintId"];
         }
     }
@@ -2186,7 +2500,7 @@ export class Issue implements IIssue {
         data["storyPoints"] = this.storyPoints;
         data["epic"] = this.epic;
         data["uat"] = this.uat;
-        data["tImeTracking"] = this.tImeTracking;        
+        data["timeTracking"] = this.timeTracking;        
         data["sprintId"] = this.sprintId;
         return data; 
     }
@@ -2209,7 +2523,7 @@ export interface IIssue {
     storyPoints: number;
     epic: number;
     uat: boolean;
-    tImeTracking?: string | undefined;
+    timeTracking?: string | undefined;
     sprintId:number;
 }
 
