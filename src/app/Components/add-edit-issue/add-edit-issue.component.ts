@@ -21,7 +21,7 @@ export class AddEditIssueComponent implements OnInit {
   AddButton=true;
   DeleteButton=false;
   public issueStatusList;issueTypeList;usersList;sprintsList;
-  private selectedType:number;
+  public selectedType:number;
 
   issue:IssuesClient = new IssuesClient(this.http); 
   issueStatus:IssueStatusClient= new  IssueStatusClient(this.http);
