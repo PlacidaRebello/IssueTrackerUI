@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
               duration:2000,
              })
              this.registrationForm.reset();
+             this.router.navigate(['/Login']); 
            },error=>{
              
             this._snackBar.open(error.message,"OK",{

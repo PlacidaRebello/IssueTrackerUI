@@ -9,8 +9,8 @@
       <a mat-list-item [routerLink]="'Login'">Login</a>
       <a mat-list-item [routerLink]="'Release'">Release List</a>
       <a mat-list-item [routerLink]="'Issues'"> Issues</a>      
-      <a mat-list-item [routerLink]="'Dashboard'"> Dashboard</a>
       <a mat-list-item [routerLink]="'Management'"> Management Dashboard</a>
+      <button mat-button (click)="LogOut()">LogOut</button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
