@@ -52,6 +52,10 @@ export class LoginFormComponent implements OnInit {
                 });
     }
   
+  Clear(){
+    this.loginForm.reset();
+  }
+
   public hasError = (controlName: string, errorName: string) =>{
     return this.loginForm.controls[controlName].hasError(errorName);
   }

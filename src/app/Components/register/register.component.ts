@@ -39,6 +39,10 @@ export class RegisterComponent implements OnInit {
     return this.registrationForm.controls[controlName].hasError(errorName);
   } 
   
+  Clear(){
+    this.registrationForm.reset();
+  }
+  
   register(){
       if(this.registrationForm.valid){
         

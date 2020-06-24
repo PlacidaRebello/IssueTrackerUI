@@ -79,26 +79,26 @@ export class SprintComponent implements OnInit ,AfterViewInit{
     });
   }
 
-  LogOut()
-  {
-    this.openLogOutModal();
-    //this.userService.logout();
-  }
+  // LogOut()
+  // {
+  //   this.openLogOutModal();
+  //   //this.userService.logout();
+  // }
 
   
-  openLogOutModal() {
-    const dialogConfig = new MatDialogConfig();
-   // dialogConfig.disableClose = false;
-    dialogConfig.id = "modal-component";
-    dialogConfig.height = "150px";
-    dialogConfig.width = "400px";
-    dialogConfig.data = {
-      name: "Logout",
-      title: "Are you sure you want to Logout?",
-      actionButtonText: "LogOut",
-      Id:0
-    }
-    const modalDialog = this.matDialog.open(ReusableModalComponent, dialogConfig);
-  }
+  // openLogOutModal() {
+  //   const dialogConfig = new MatDialogConfig();
+  //  // dialogConfig.disableClose = false;
+  //   dialogConfig.id = "modal-component";
+  //   dialogConfig.height = "150px";
+  //   dialogConfig.width = "400px";
+  //   dialogConfig.data = {
+  //     name: "Logout",
+  //     title: "Are you sure you want to Logout?",
+  //     actionButtonText: "LogOut",
+  //     Id:0
+  //   }
+  //   const modalDialog = this.matDialog.open(ReusableModalComponent, dialogConfig);
+  // }
 
 }

@@ -18,7 +18,9 @@ export class NavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,private matDialog:MatDialog,) {}
+  constructor(private breakpointObserver: BreakpointObserver,private matDialog:MatDialog)
+   { }
+
   LogOut(){
     this.openLogOutModal();
   }
@@ -36,4 +38,6 @@ export class NavbarComponent {
     }
     const modalDialog = this.matDialog.open(ReusableModalComponent, dialogConfig);
   }
+   
+
 }
