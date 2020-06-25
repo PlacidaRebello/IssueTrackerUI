@@ -49,14 +49,14 @@
         </div>
         <div aria-colcount="4" >
               <mat-form-field>
-                <input matInput type="text" placeholder="Subject" formControlName="subject" id="name">
+                <input matInput type="text" placeholder="Subject" formControlName="subject" autocomplete="off" maxlength="50">
                 <mat-hint align="start">Not less then 5 characters .</mat-hint>
                 <mat-error *ngIf="hasError('subject','required')">subject is required</mat-error>
                 <mat-error *ngIf="hasError('subject', 'minlength')">Please enter min 5 characters</mat-error>
               </mat-form-field>
 
               <mat-form-field>
-                <input matInput type="text" placeholder="Description" formControlName="description" id="name">
+                <input matInput type="text" placeholder="Description" formControlName="description"  autocomplete="off" maxlength="100">
                 <mat-hint align="start">Not less then 10 characters .</mat-hint>
                 <mat-error *ngIf="hasError('description','required')">description is required</mat-error>
                 <mat-error *ngIf="hasError('description', 'minlength')">Please enter min 10 characters</mat-error>
@@ -73,7 +73,7 @@
               </mat-form-field>     
                
               <mat-form-field>
-                <input matInput type="text" placeholder="Tags" formControlName="tags" id="name">
+                <input matInput type="text" placeholder="Tags" formControlName="tags"  autocomplete="off" maxlength="20">
                 <mat-hint align="start">Not less then 3 characters .</mat-hint>
                 <mat-error *ngIf="hasError('tags','required')">tags is required</mat-error>
                 <mat-error *ngIf="hasError('tags', 'minlength')">Please enter min 5 characters</mat-error>
@@ -82,7 +82,7 @@
       <br>          
       <div aria-colcount="4" *ngIf="selectedType===1">      
               <mat-form-field>
-                <input matInput type="text" placeholder="Attachment" formControlName="attachment" >
+                <input matInput type="text" placeholder="Attachment" formControlName="attachment" maxlength="20" >
                 <mat-hint align="start">Not less then 3 characters .</mat-hint>
               </mat-form-field>
 
@@ -96,28 +96,28 @@
               </mat-form-field> 
 
               <mat-form-field>
-                <input matInput type="text" placeholder="Enviroment" formControlName="enviroment" >
+                <input matInput type="text" placeholder="Enviroment" formControlName="enviroment" maxlength="20">
                 <mat-hint align="start">Not less then 3 characters .</mat-hint>
               </mat-form-field>
 
               <mat-form-field>
-                <input matInput type="text" placeholder="Browser" formControlName="browser" >
+                <input matInput type="text" placeholder="Browser" formControlName="browser" maxlength="20">
                 <mat-hint align="start">Not less then 3 characters .</mat-hint>
               </mat-form-field>
        </div>
        <br>
        <div aria-colcount="4" *ngIf="selectedType===2">
               <mat-form-field>
-                <input matInput type="text" placeholder="AcceptanceCriteria" formControlName="acceptanceCriteria" >
+                <input matInput type="text" placeholder="AcceptanceCriteria" formControlName="acceptanceCriteria" autocomplete="off" maxlength="20">
                 <mat-hint align="start">Not less then 3 characters .</mat-hint>
               </mat-form-field>
 
               <mat-form-field>
-                <input matInput type="number" placeholder="StoryPoints" formControlName="storyPoints" >
+                <input matInput type="number" placeholder="StoryPoints" formControlName="storyPoints" autocomplete="off">
                 <mat-hint align="start">Not more 3 characters .</mat-hint>
               </mat-form-field>
               <mat-form-field>
-                <input matInput type="number" placeholder="Epic" formControlName="epic" >
+                <input matInput type="number" placeholder="Epic" formControlName="epic" autocomplete="off">
                 <mat-hint align="start">Not more 2 characters .</mat-hint>
               </mat-form-field>
               <mat-slide-toggle   formControlName="uat">

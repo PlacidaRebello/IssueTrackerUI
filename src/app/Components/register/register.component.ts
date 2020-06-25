@@ -39,6 +39,10 @@ export class RegisterComponent implements OnInit {
     return this.registrationForm.controls[controlName].hasError(errorName);
   } 
   
+  Clear(){
+    this.registrationForm.reset();
+  }
+  
   register(){
       if(this.registrationForm.valid){
         
@@ -52,6 +56,7 @@ export class RegisterComponent implements OnInit {
               duration:2000,
              })
              this.registrationForm.reset();
+             this.router.navigate(['/Login']); 
            },error=>{
              
             this._snackBar.open(error.message,"OK",{

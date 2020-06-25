@@ -19,11 +19,11 @@ export class DashboardComponent implements OnInit {
     this.getData();
   }
   getData(){
-    this.issues.getPoints().subscribe(res=>{
-        this.pieChartData=res as number[];
-        console.log(this.pieChartData);
-        this.chartReady=true;
-    });
+    // this.issues.getPoints().subscribe(res=>{
+    //     this.pieChartData=res as number[];
+    //     console.log(this.pieChartData);
+    //     this.chartReady=true;
+    // });
   }
 
   chartOptions={
