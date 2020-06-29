@@ -17,7 +17,8 @@ const routes: Routes = [
   {path:"Login",component:LoginFormComponent},
   {path:"Dashboard",component:DashboardComponent},
   {path:"Management",component:ManagementDashBoardComponent},
-  {path:"Register", component:RegisterComponent}
+  {path:"Register", component:RegisterComponent},  
+  {path: '', redirectTo: '/Login', pathMatch: 'full' }
 ];
 
 @NgModule({

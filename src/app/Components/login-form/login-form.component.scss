@@ -1,9 +1,33 @@
-.my-form{
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
+// .my-form{
+//     min-width: 150px;
+//     max-width: 500px;
+//     width: 100%;
+//   }
    
-  .full-width {
-    width: 100%;
-  }
+//   .full-width {
+//     width: 100%;
+//   }
+
+.main-div{
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+mat-card{
+  width:500px;
+  align-content: center;
+}
+.mat-card-title{    
+  background-color:rgb(50, 53, 209) !important;    
+ //  padding:0px !important;
+}
+mat-form-field{
+    width: 500px;
+}
+mat-card-title{
+    text-align: center;
+}
+.my-card{
+  box-shadow: 2px 2px 25px 0px ;
+}
