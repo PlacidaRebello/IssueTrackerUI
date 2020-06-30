@@ -8,23 +8,27 @@ import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
-import{MatCardModule,
-  MatInputModule,
-  MatListModule,
-  MatSidenavModule,
-  MatTableModule,
-  MatGridListModule,
-  MatToolbarModule,
-  MatSortModule,
-  MatPaginatorModule,
-  MatDatepickerModule, 
-  MatNativeDateModule,
-  MatDialogModule,
-  MatSelectModule,MatButtonModule,MatIconModule,MatSnackBarModule,MatSlideToggleModule, MatRadioModule
-}  from '@angular/material';
+// import{
+//   MatCardModule,
+//   MatInputModule,
+//   MatListModule,
+//   MatSidenavModule,
+//   MatTableModule,
+//   MatGridListModule,
+//   MatToolbarModule,
+//   MatSortModule,
+//   MatPaginatorModule,
+//   MatDatepickerModule, 
+//   MatNativeDateModule,
+//   MatDialogModule,
+//   MatSelectModule,MatButtonModule,MatIconModule,MatSnackBarModule,MatSlideToggleModule, MatRadioModule
+// }  from '@angular/material';
+
+import { MaterialModule } from './Modules/material/material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ChartsModule} from 'ng2-charts';
+import { FlexLayoutModule} from '@angular/flex-layout';
 
 import { SprintComponent} from './Components/sprint/sprint.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
@@ -41,6 +45,7 @@ import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issu
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ManagementDashBoardComponent } from './Components/management-dash-board/management-dash-board.component';
 import { RegisterComponent } from './Components/register/register.component';
+import { LogOutComponent } from './log-out/log-out.component';
 
 @NgModule({
   declarations: [
@@ -56,35 +61,38 @@ import { RegisterComponent } from './Components/register/register.component';
     AddEditIssueComponent,
     DashboardComponent,
     ManagementDashBoardComponent,
-    RegisterComponent
+    RegisterComponent,
+    LogOutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatListModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatGridListModule,
-    MatToolbarModule,
+    // MatCardModule,
+    // MatInputModule,
+    // MatListModule,
+    // MatSidenavModule,
+    // MatTableModule,
+    // MatGridListModule,
+    // MatToolbarModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
     DragDropModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSortModule,
-    MatPaginatorModule,    
-    MatDatepickerModule, 
-    MatNativeDateModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatSlideToggleModule,MatRadioModule,
-    ChartsModule
+    // MatButtonModule,
+    // MatIconModule,
+    // MatSortModule,
+    // MatPaginatorModule,    
+    // MatDatepickerModule, 
+    // MatNativeDateModule,
+    // MatDialogModule,
+    // MatSelectModule,
+    // MatSnackBarModule,
+    // MatSlideToggleModule,MatRadioModule,
+    ChartsModule,
+    FlexLayoutModule,
+    MaterialModule
   ],
   providers: [IssueTrackerService,UserService,{
     provide: HTTP_INTERCEPTORS,
@@ -92,7 +100,10 @@ import { RegisterComponent } from './Components/register/register.component';
     multi: true
   }],
   bootstrap: [AppComponent],
-  exports:[MatTableModule,MatSortModule,MatPaginatorModule],
+  exports:[
+    // // MatTableModule,
+    // MatSortModule,MatPaginatorModule
+  ],
   entryComponents:[AddEditSprintComponent,AddEditReleaseComponent,AddEditIssueComponent,ReusableModalComponent]
 })
 export class AppModule { }

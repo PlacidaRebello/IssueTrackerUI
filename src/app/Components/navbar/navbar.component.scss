@@ -18,3 +18,38 @@
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+
+
+// css fm web
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+ a:hover, a:active{
+  color: rgb(181, 182, 185);
+}
+
+mat-nav-list a:hover{  
+  color: rgb(114, 137, 243);
+}
+.navigation-items{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+mat-toolbar{
+  border-radius: 3px;
+}
+
+@media(max-width: 959px){
+  mat-toolbar{
+      border-radius: 0px;
+  }
+}
+.nav-caption{
+  display: inline-block;
+  padding-left: 6px;
+}
