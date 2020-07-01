@@ -17,7 +17,7 @@ export class AddEditSprintComponent implements OnInit {
   minDate:Date;
   minEndDate:Date;
   maxDate:Date;
-  editMode = false;
+  editMode = false;isReadOnly;
   pageTitle: string;
   sprintForm:FormGroup;
   AddButton=true;
@@ -42,6 +42,7 @@ export class AddEditSprintComponent implements OnInit {
     this.createForm();
     this.sprintId=this.data.id?this.data.id:''
     this.editMode=this.data.id!=0;
+    this.isReadOnly=this.editMode;
     this.initForm();
     this.pageTitle=this.editMode?'Edit Sprint':'Add Sprint';  
   }

@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SprintComponent implements OnInit ,AfterViewInit{
   
+  isLoading=true;
   public dataSource = new MatTableDataSource<GetSprintData>();
  // private  http:HttpClient;
   public displayedColumns = ['sprintName','sprintPoints', 'startDate','endDate','sprintStatusName','update', 'delete'];
@@ -40,13 +41,17 @@ export class SprintComponent implements OnInit ,AfterViewInit{
   
   getSprintList()  {
     this.sprint.getSprints().subscribe(res=>{   
+      this.isLoading=false;    
        this.dataSource.data = res as GetSprintData[]; 
     });    
   }
 
   public redirectToUpdatePage(id):void{     
     const dialogConfig = new MatDialogConfig();
-    this.matDialog.open(AddEditSprintComponent,{ data:{id}});  
+    let model=this.matDialog.open(AddEditSprintComponent,{ data:{id}});
+    model.afterClosed().subscribe(res=>{
+      this.getSprintList();
+     });   
   }
   
   public redirectToDelete(id):void  {

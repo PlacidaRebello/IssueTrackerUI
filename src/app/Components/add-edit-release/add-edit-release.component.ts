@@ -17,7 +17,7 @@ export class AddEditReleaseComponent implements OnInit {
   minDate:Date;
   minEndDate:Date;
   maxDate:Date;
-  editMode = false;
+  editMode = false;isReadOnly;
   pageTitle: string;
   releaseForm:FormGroup;
   AddButton=true;
@@ -41,6 +41,7 @@ export class AddEditReleaseComponent implements OnInit {
     this.createForm();
     this.releaseId=this.data.id?this.data.id:'';
     this.editMode=this.data.id!=0;
+    this.isReadOnly=this.editMode;
     this.initForm();    
     this.pageTitle=this.editMode?'Edit Release':'Add Release';  
   }

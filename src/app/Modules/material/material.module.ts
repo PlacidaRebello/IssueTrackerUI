@@ -15,7 +15,7 @@ import { MatCardModule,
   MatSelectModule,MatButtonModule,
   MatIconModule,MatSnackBarModule,
   MatSlideToggleModule, MatRadioModule } from '@angular/material';
-
+  import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -38,7 +38,7 @@ import { MatCardModule,
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatSlideToggleModule,MatRadioModule,
+    MatSlideToggleModule,MatRadioModule,MatProgressSpinnerModule
   ],
   exports:[
     MatCardModule,
@@ -57,7 +57,7 @@ import { MatCardModule,
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatSlideToggleModule,MatRadioModule,
+    MatSlideToggleModule,MatRadioModule,MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

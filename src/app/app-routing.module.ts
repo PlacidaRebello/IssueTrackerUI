@@ -9,7 +9,7 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ManagementDashBoardComponent } from './Components/management-dash-board/management-dash-board.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { ReusableModalComponent } from './Components/reusable-modal/reusable-modal.component';
-import { LogOutComponent } from './log-out/log-out.component';
+import { LogOutComponent } from './Components/log-out/log-out.component';
 
 const routes: Routes = [
   {path:"Sprints",component:SprintComponent},
