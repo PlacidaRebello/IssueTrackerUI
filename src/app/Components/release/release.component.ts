@@ -81,5 +81,8 @@ export class ReleaseComponent implements OnInit {
       this.getReleaseList();
     });
   }
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
 }
 

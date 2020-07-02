@@ -83,6 +83,9 @@ export class SprintComponent implements OnInit ,AfterViewInit{
       this.getSprintList();      
     });
   }
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
 
   // LogOut()
   // {

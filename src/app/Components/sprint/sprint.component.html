@@ -1,17 +1,23 @@
 
 <!-- code for adding sprint -->
 <!-- Main Toolbar of an App -->    
-<mat-toolbar style="color:blue;">    
+<mat-toolbar style="color:#3f51b5;">    
   <span> Sprint List</span>    
   <!-- <span class="demo-toolbar"></span>        -->
   
-</mat-toolbar>    
-<!--create button on top-->
-<div>
-  <a (click)="openModal()" mat-button color="primary">Create Sprint</a>
-</div>
+</mat-toolbar>   
+
 
 <div class="mat-elevation-z8">
+  <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+    <mat-form-field>
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <div>    
+     <a (click)="openModal()" mat-button color="primary">Create Sprint</a>
+     <button mat-raised-button id="create-button" style="color:#3f51b5;" (click)="openModal()">Create Sprint</button>
+    </div>
+  </div>
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="sprintName">
       <th mat-header-cell *matHeaderCellDef > SprintName</th>
