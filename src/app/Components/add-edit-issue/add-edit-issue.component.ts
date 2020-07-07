@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar, Ma
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ReusableModalComponent } from '../reusable-modal/reusable-modal.component';
+import { SuccessDialogComponent } from '../shared/dialogs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-add-edit-issue',
@@ -13,7 +14,7 @@ import { ReusableModalComponent } from '../reusable-modal/reusable-modal.compone
   styleUrls: ['./add-edit-issue.component.scss']
 })
 export class AddEditIssueComponent implements OnInit {
-
+  private dialogConfig; 
   issueId:number=0;
   editMode = false;
   pageTitle: string;
@@ -82,7 +83,6 @@ export class AddEditIssueComponent implements OnInit {
       sprintId:['',Validators.required]
     });     
   }
-
   
   private initForm()  {
     if(this.editMode){  
@@ -131,15 +131,15 @@ export class AddEditIssueComponent implements OnInit {
        newIssue.uat=formvalues.uat;
        newIssue.timeTracking=formvalues.timeTracking;
        newIssue.sprintId=formvalues.sprintId;
-       this.issue.postIssue(newIssue).subscribe(res=>{           
-           this._snackBar.open(res.message,"OK",{
-             duration:2000,
-           });
+       this.issue.postIssue(newIssue).subscribe(res=>{  
+          this.dialogConfig.data.title="Issue created successfully";
+          let dialogRef = this.matDialog.open(SuccessDialogComponent, this.dialogConfig);
+                        dialogRef.afterClosed().subscribe(result => {});  
          },error=>{
-          this._snackBar.open(error.message,"OK",{
-            duration:2000,
-          });
-         }
+             this._snackBar.open(error.message,"OK",{
+             duration:2000,
+             });
+          }
        );
        this.dialogRef.close();
    }
@@ -165,9 +165,9 @@ export class AddEditIssueComponent implements OnInit {
       updateIssue.issueDetailsId=formvalues.issueDetailsId; 
       updateIssue.sprintId=formvalues.sprintId;
       this.issue.putIssue(updateIssue).subscribe(res=>{
-          this._snackBar.open(res.message,"OK",{
-            duration:2000,
-          });
+        this.dialogConfig.data.title="Issue Edited successfully";
+        let dialogRef = this.matDialog.open(SuccessDialogComponent, this.dialogConfig);
+                      dialogRef.afterClosed().subscribe(result => {});  
         },error=>{this._snackBar.open(error.message,"OK",{
           duration:2000,
         });

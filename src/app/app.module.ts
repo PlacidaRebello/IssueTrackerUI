@@ -29,6 +29,8 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ManagementDashBoardComponent } from './Components/management-dash-board/management-dash-board.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { LogOutComponent } from './Components/log-out/log-out.component';
+import { SuccessDialogComponent } from './Components/shared/dialogs/success-dialog/success-dialog.component';
+import { ErrorDialogComponent } from './Components/shared/dialogs/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { LogOutComponent } from './Components/log-out/log-out.component';
     DashboardComponent,
     ManagementDashBoardComponent,
     RegisterComponent,
-    LogOutComponent
+    LogOutComponent,
+    SuccessDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,14 @@ import { LogOutComponent } from './Components/log-out/log-out.component';
   }],
   bootstrap: [AppComponent],
   exports:[
-  ],
-  entryComponents:[AddEditSprintComponent,AddEditReleaseComponent,AddEditIssueComponent,ReusableModalComponent]
+    ErrorDialogComponent,
+    SuccessDialogComponent 
+   ],
+  entryComponents:[AddEditSprintComponent,
+    AddEditReleaseComponent,
+    AddEditIssueComponent,
+    ReusableModalComponent,
+    ErrorDialogComponent,
+    SuccessDialogComponent]
 })
 export class AppModule { }

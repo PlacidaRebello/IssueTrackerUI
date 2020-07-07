@@ -3,9 +3,10 @@ import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { SprintsClient, CreateSprintRequest, EditSprintRequest, GetSprintStatusData, GetReleaseList, ReleasesClient}from 'src/app/services/issue-tracker.service';
 import { FormGroup,FormControl, Validators ,FormBuilder} from '@angular/forms';
 import { Location } from '@angular/common';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar, MatDialog } from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { SuccessDialogComponent } from '../shared/dialogs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-aesprint',
@@ -13,6 +14,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./add-edit-sprint.component.scss']
 })
 export class AddEditSprintComponent implements OnInit {
+
+  private dialogConfig;
   sprintId:string='';
   minDate:Date;
   minEndDate:Date;
@@ -25,7 +28,7 @@ export class AddEditSprintComponent implements OnInit {
   release:ReleasesClient= new ReleasesClient(this.http);
   public SprintStatus;releases;
 
-  constructor(private location: Location,private fb:FormBuilder,
+  constructor(private location: Location,private fb:FormBuilder,private matDialog:MatDialog,
             public dialogRef: MatDialogRef<AddEditSprintComponent>,private _snackBar:MatSnackBar,
              @Inject(MAT_DIALOG_DATA)public data:any,private route:ActivatedRoute,private http:HttpClient) 
      { 
@@ -119,22 +122,19 @@ export class AddEditSprintComponent implements OnInit {
        newSprint.releaseId=formvalues.releaseId;
 
        this.sprint.postSprint(newSprint).subscribe(res=>{
-        this._snackBar.open(res.message,"OK",{
-          duration:2000,
-        });
+        this.dialogConfig.data.title="Sprint created successfully";
+        let dialogRef = this.matDialog.open(SuccessDialogComponent, this.dialogConfig);
+                      dialogRef.afterClosed().subscribe(result => {});  
          },error=>{
           this._snackBar.open(error.message,"OK",{
             duration:2000,
           });
-         }
-       );
+         });
        this.dialogRef.close();
-   }
+    }
 
    updateSprint(formvalues)
-   {
-      console.log(formvalues,"update");
-      
+   {      
       let updateSprint: EditSprintRequest = new EditSprintRequest();      
       updateSprint.sprintName = formvalues.sprintName;
       updateSprint.sprintPoints = formvalues.sprintPoints;
@@ -145,16 +145,15 @@ export class AddEditSprintComponent implements OnInit {
       updateSprint.releaseId=formvalues.releaseId;
 
       this.sprint.putSprint(updateSprint).subscribe(res=>{
-        this._snackBar.open(res.message,"OK",{
-          duration:2000,
-        });console.log(res);
+        this.dialogConfig.data.title="Sprint Edited successfully";
+        let dialogRef = this.matDialog.open(SuccessDialogComponent, this.dialogConfig);
+                      dialogRef.afterClosed().subscribe(result => {});  
         },error=>{
           this._snackBar.open(error.message,"OK",{
             duration:2000,
           });
-        }
-      );
+        });
       this.dialogRef.close();
-   }
+    }
   
 }

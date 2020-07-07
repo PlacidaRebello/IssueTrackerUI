@@ -6,13 +6,12 @@
     <!-- <span class="demo-toolbar"></span>        -->    
 </mat-toolbar>     
 <div class="mat-elevation-z8">
-    <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+    <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="800px" fxLayoutGap.lt.md="20px">
       <mat-form-field>
         <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
-      <div>
-        <a (click)="openModal()" mat-button color="primary">Create Release</a>       
-       <!-- <button mat-raised-button id="create-button" style="color:#3f51b5;" (click)="openModal()">Create Release</button> -->
+      <div>    
+       <button mat-raised-button id="create-button" style="color:#3f51b5;" (click)="openModal()">Create Release</button>
       </div>
     </div>
 
@@ -60,10 +59,7 @@
       
     </table>
   
-    <mat-paginator [pageSize]="5" >
-    </mat-paginator>
-   
-    <button mat-raised-button id="create-button" (click)="openModal()">Create Release</button>
+    <mat-paginator [pageSize]="5" >  </mat-paginator>
   </div>
 
   <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">

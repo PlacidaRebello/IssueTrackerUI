@@ -3,8 +3,11 @@ import { ReleasesClient,SprintsClient, CreateReleaseRequest, EditReleaseRequest,
 import { FormGroup,FormControl, Validators ,FormBuilder} from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
+import { MatDialog} from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { SuccessDialogComponent } from '../shared/dialogs/success-dialog/success-dialog.component';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-add-edit-release',
@@ -13,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddEditReleaseComponent implements OnInit {
   
+  private dialogConfig;
   releaseId:number=0;
   minDate:Date;
   minEndDate:Date;
@@ -25,7 +29,7 @@ export class AddEditReleaseComponent implements OnInit {
   sprint:SprintsClient= new  SprintsClient(this.http);
   public SprintStatus;
 
-  constructor(private location: Location,private fb:FormBuilder,
+  constructor(private location: Location,private fb:FormBuilder,private dialog:MatDialog,private errorService:ErrorHandlerService,
             public dialogRef: MatDialogRef<AddEditReleaseComponent>,private _snackBar:MatSnackBar,
              @Inject(MAT_DIALOG_DATA)public data:any,private route:ActivatedRoute,private http:HttpClient)
   {
@@ -72,7 +76,13 @@ export class AddEditReleaseComponent implements OnInit {
          this.minEndDate=new Date(startdate.getFullYear(),startdate.getMonth(),startdate.getDate()+1);
       });
       this.AddButton=false;
-   }
+    }
+    this.dialogConfig = {
+      height: '200px',
+      width: '400px',
+      disableClose: true,
+      data: { }
+    }
   }
 
   public hasError = (controlName: string, errorName: string) =>{
@@ -106,15 +116,14 @@ export class AddEditReleaseComponent implements OnInit {
        newRelease.startDate =formvalues.startDate;
        newRelease.endDate = formvalues.endDate;
        newRelease.sprintStatusId=formvalues.sprintStatusId;
-       this.release.postRelease(newRelease).subscribe(res=>{           
-           this._snackBar.open(res.message,"OK",{
-             duration:2000,
-           });
-         },error=>{
-          this._snackBar.open(error.message,"OK",{
-            duration:2000,
-          });
-         }
+       this.release.postRelease(newRelease).subscribe(res=>{  
+         this.dialogConfig.data.title="Release created successfully";
+        let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
+                         dialogRef.afterClosed().subscribe(result => {});  
+          },(error=>{
+            this.errorService.dialogConfig = { ...this.dialogConfig };
+            this.errorService.handleError(error);
+          })
        );
        this.dialogRef.close();
    }
@@ -128,14 +137,15 @@ export class AddEditReleaseComponent implements OnInit {
       updateRelease.sprintStatusId=formvalues.sprintStatusId;
 
       this.release.putRelease(updateRelease).subscribe(res=>{
-          this._snackBar.open(res.message,"OK",{
-            duration:2000,
-          });
+        this.dialogConfig.data.title="Release edited successfully";
+        let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
+        dialogRef.afterClosed()
+          .subscribe(result => {
+          });  
         },error=>{this._snackBar.open(error.message,"OK",{
           duration:2000,
         });
-        }
-      );
+      });
       this.dialogRef.close();
    }
 }

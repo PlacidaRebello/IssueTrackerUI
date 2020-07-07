@@ -9,7 +9,7 @@
            <mat-dialog-content>  
               <mat-form-field>
                 <input matInput type="text" [readonly]="isReadOnly" placeholder="releaseName" formControlName="releaseName"  autocomplete="off" maxlength="30">
-                <mat-hint>Not less then 5 characters .</mat-hint>
+                <!-- <mat-hint>Not less then 5 characters .</mat-hint> -->
                 <mat-error *ngIf="hasError('releaseName','required')">ReleaseName is required</mat-error>
                 <mat-error *ngIf="hasError('releaseName', 'minlength')">Please enter min 5 characters</mat-error>
               </mat-form-field>

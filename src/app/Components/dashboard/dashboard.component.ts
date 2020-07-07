@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   ]
 })
 export class DashboardComponent implements OnInit {
-  
+  private dialogConfig;
   isLoading=true;
   public dataSource = new MatTableDataSource<GetReleaseData>();  
   public columnsToDisplay = ['releaseName', 'startDate','endDate','sprintStatusName','update','delete'];
@@ -33,7 +34,8 @@ export class DashboardComponent implements OnInit {
    @ViewChild(MatSort,{static:false}) sort: MatSort;
    @ViewChild(MatPaginator,{static:false}) paginator: MatPaginator;   
 
-  constructor(private route:ActivatedRoute,private router:Router,private matDialog:MatDialog,private http:HttpClient)
+  constructor(private route:ActivatedRoute,private router:Router,private matDialog:MatDialog,
+              private http:HttpClient, private errorService:ErrorHandlerService)
    {    }
 
   ngOnInit() {   
@@ -49,7 +51,11 @@ export class DashboardComponent implements OnInit {
     this.release.getReleases().subscribe(res=>{ 
        this.isLoading=false;    
        this.dataSource.data = res as GetReleaseData[];        
-    });    
+    },(error=>{
+      this.errorService.dialogConfig = { ...this.dialogConfig };
+      this.errorService.handleError(error);
+    })
+    );    
   }
 
   public redirectToUpdatePage(id):void{  
