@@ -13,6 +13,7 @@ import { AddEditIssueComponent } from '../add-edit-issue/add-edit-issue.componen
 })
 export class ManagementDashBoardComponent implements OnInit {
 
+  isLoading=true;
   baseurl="https://localhost:44322";
   issues:IssuesClient = new IssuesClient(this.http); 
   management:ManagementClient= new ManagementClient(this.http);
@@ -32,7 +33,8 @@ export class ManagementDashBoardComponent implements OnInit {
   }
 
   getIssuesList()  {   
-    this.management.getInitialIssueList().subscribe(res=>{  
+    this.management.getInitialIssueList().subscribe(res=>{
+      this.isLoading=false;      
       this.issuesList=res as GetIssueData[];
     });    
   }

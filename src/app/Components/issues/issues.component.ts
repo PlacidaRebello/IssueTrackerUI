@@ -14,7 +14,8 @@ import { AddEditIssueComponent } from '../add-edit-issue/add-edit-issue.componen
 export class IssuesComponent implements OnInit{
    
   issues:IssuesClient = new IssuesClient(this.http); 
-  public issueList;  
+  public issueList; 
+  isLoading=true; 
   public TodoList:GetIssueData[]=[];
   public InProgressList:GetIssueData[]=[];
   public CompletedList:GetIssueData[]=[];
@@ -30,7 +31,8 @@ export class IssuesComponent implements OnInit{
   }
 
   getIssuesList()  {   
-    this.issues.getIssueList().subscribe(res=>{  
+    this.issues.getIssueList().subscribe(res=>{ 
+      this.isLoading=false;     
       this.issueList=res as GetIssueData[];  
       this.SortIssues(this.issueList);  
     });    
