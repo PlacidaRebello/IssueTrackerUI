@@ -23,10 +23,7 @@ export class ReusableModalComponent implements OnInit {
     this.Id=this.modalData.Id;
   }
 
-  actionFunction() {   
-    // if(this.modalData.Id==0){
-    //   this.userService.logout();
-    // } else
+  actionFunction() {  
     if(this.modalData.name=="Sprint"){
       this.sprint.deleteSprint(this.Id).subscribe(res=>{
         this._snackBar.open(res.message,"OK",{

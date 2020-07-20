@@ -68,7 +68,6 @@ export class SprintComponent implements OnInit ,AfterViewInit{
  
   openCofirmationModal(id) {
     const dialogConfig = new MatDialogConfig();
-   // dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component";
     dialogConfig.height = "150px";
     dialogConfig.width = "400px";
@@ -86,27 +85,5 @@ export class SprintComponent implements OnInit ,AfterViewInit{
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
-
-  // LogOut()
-  // {
-  //   this.openLogOutModal();
-  //   //this.userService.logout();
-  // }
-
-  
-  // openLogOutModal() {
-  //   const dialogConfig = new MatDialogConfig();
-  //  // dialogConfig.disableClose = false;
-  //   dialogConfig.id = "modal-component";
-  //   dialogConfig.height = "150px";
-  //   dialogConfig.width = "400px";
-  //   dialogConfig.data = {
-  //     name: "Logout",
-  //     title: "Are you sure you want to Logout?",
-  //     actionButtonText: "LogOut",
-  //     Id:0
-  //   }
-  //   const modalDialog = this.matDialog.open(ReusableModalComponent, dialogConfig);
-  // }
 
 }
