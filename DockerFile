@@ -5,7 +5,7 @@ RUN npm install
 COPY ./ /app/
 RUN npm run build -- --configuration=production
 
-FROM nginx
-COPY --from=buildstep /app/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=buildstep /app/dist/out /usr/share/nginx/html
+FROM nginx:1.19.1-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=buildstep /app/dist/IssueTrackerUI /usr/share/nginx/html
 EXPOSE 80
