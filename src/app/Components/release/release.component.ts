@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class ReleaseComponent implements OnInit {
 
+  isLoading=true;
   public dataSource = new MatTableDataSource<GetReleaseData>();
   
   public displayedColumns = ['releaseName', 'startDate','endDate','sprintStatusName','update','delete'];
@@ -37,13 +38,17 @@ export class ReleaseComponent implements OnInit {
   
   getReleaseList() {
     this.release.getReleases().subscribe(res=>{     
+      this.isLoading=false;    
        this.dataSource.data = res as GetReleaseData[];        
     });    
   }
 
   public redirectToUpdatePage(id):void{     
     const dialogConfig = new MatDialogConfig();
-    this.matDialog.open(AddEditReleaseComponent,{ data:{id}});    
+    let model=this.matDialog.open(AddEditReleaseComponent,{ data:{id}}); 
+    model.afterClosed().subscribe(res=>{
+      this.getReleaseList();
+    });
   }
 
   public redirectToDelete(id):void  {
@@ -75,6 +80,9 @@ export class ReleaseComponent implements OnInit {
     modalDialog.afterClosed().subscribe(res=>{      
       this.getReleaseList();
     });
+  }
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 }
 

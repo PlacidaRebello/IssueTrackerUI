@@ -7,24 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
-
-import{MatCardModule,
-  MatInputModule,
-  MatListModule,
-  MatSidenavModule,
-  MatTableModule,
-  MatGridListModule,
-  MatToolbarModule,
-  MatSortModule,
-  MatPaginatorModule,
-  MatDatepickerModule, 
-  MatNativeDateModule,
-  MatDialogModule,
-  MatSelectModule,MatButtonModule,MatIconModule,MatSnackBarModule,MatSlideToggleModule, MatRadioModule
-}  from '@angular/material';
+import { MaterialModule } from './Modules/material/material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ChartsModule} from 'ng2-charts';
+import { FlexLayoutModule} from '@angular/flex-layout';
 
 import { SprintComponent} from './Components/sprint/sprint.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
@@ -41,6 +28,9 @@ import { AddEditIssueComponent } from './Components/add-edit-issue/add-edit-issu
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ManagementDashBoardComponent } from './Components/management-dash-board/management-dash-board.component';
 import { RegisterComponent } from './Components/register/register.component';
+import { LogOutComponent } from './Components/log-out/log-out.component';
+import { SuccessDialogComponent } from './Components/shared/dialogs/success-dialog/success-dialog.component';
+import { ErrorDialogComponent } from './Components/shared/dialogs/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,35 +46,23 @@ import { RegisterComponent } from './Components/register/register.component';
     AddEditIssueComponent,
     DashboardComponent,
     ManagementDashBoardComponent,
-    RegisterComponent
+    RegisterComponent,
+    LogOutComponent,
+    SuccessDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatListModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatGridListModule,
-    MatToolbarModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
     DragDropModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSortModule,
-    MatPaginatorModule,    
-    MatDatepickerModule, 
-    MatNativeDateModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatSlideToggleModule,MatRadioModule,
-    ChartsModule
+    ChartsModule,
+    FlexLayoutModule,
+    MaterialModule
   ],
   providers: [IssueTrackerService,UserService,{
     provide: HTTP_INTERCEPTORS,
@@ -92,7 +70,15 @@ import { RegisterComponent } from './Components/register/register.component';
     multi: true
   }],
   bootstrap: [AppComponent],
-  exports:[MatTableModule,MatSortModule,MatPaginatorModule],
-  entryComponents:[AddEditSprintComponent,AddEditReleaseComponent,AddEditIssueComponent,ReusableModalComponent]
+  exports:[
+    ErrorDialogComponent,
+    SuccessDialogComponent 
+   ],
+  entryComponents:[AddEditSprintComponent,
+    AddEditReleaseComponent,
+    AddEditIssueComponent,
+    ReusableModalComponent,
+    ErrorDialogComponent,
+    SuccessDialogComponent]
 })
 export class AppModule { }

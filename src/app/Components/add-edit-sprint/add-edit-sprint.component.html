@@ -10,15 +10,15 @@
            <mat-dialog-content> 
             <div aria-colcount="4" > 
               <mat-form-field>
-                <input matInput type="text" placeholder="SprintName" formControlName="sprintName" autocomplete="off" maxlength="30">
-                <mat-hint >Not less then 5 characters .</mat-hint>
+                <input matInput type="text" [readonly]="isReadOnly" placeholder="SprintName" formControlName="sprintName" autocomplete="off" maxlength="30">
+                <!-- <mat-hint >Not less then 5 characters .</mat-hint> -->
                 <mat-error *ngIf="hasError('sprintName','required')">sprintName is required</mat-error>
                 <mat-error *ngIf="hasError('sprintName', 'minlength')">Please enter min 5 characters</mat-error>
               </mat-form-field>
 
               <mat-form-field>
                 <input matInput type="number" placeholder="Sprint Points" formControlName="sprintPoints" autocomplete="off">
-                <mat-hint >Not more then 4 characters.</mat-hint>
+                <!-- <mat-hint >Not more then 4 characters.</mat-hint> -->
                 <mat-error *ngIf="hasError('sprintPoints', 'required')">SprintPoints are required</mat-error>
               </mat-form-field> 
 
