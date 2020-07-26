@@ -1,159 +1,137 @@
-
-
 <section fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-card fxFlex="500px" fxFlex.xs="100%">    
-       <!-- Title of an Card -->    
-       <title mat-dialog-title > {{pageTitle}}  </title>
-       <div *ngIf="DeleteButton" align="end">              
-        <button mat-icon-button color="accent" (click)="Delete(issueId)">
-          <mat-icon class="mat-18">delete</mat-icon></button>
-        
-      </div>
-        <form [formGroup]="issueForm" autocomplete="off" novalidate (ngSubmit)="onSubmit()" fxLayout="column wrap"
-            fxLayoutAlign="center" fxLayoutGap="20px">
-           <mat-dialog-content> 
-        <div>           
-            <mat-form-field *ngIf="AddButton">
-                    <mat-label>Select IssueStatus</mat-label>
-                    <mat-select formControlName="issueStatusId" >
-                        <mat-option *ngFor="let status of issueStatusList" [value]="status.issueStatusId">
-                            {{ status.statusName}}
-                        </mat-option>
-                    </mat-select>              
-                    <mat-error *ngIf="hasError('issueStatusId','required')">IssueStatus is required</mat-error>
-            </mat-form-field>
-           
-            <mat-form-field>
-              <mat-label>Select IssueType</mat-label>
-              <mat-select formControlName="issueTypeId" [(value)]="selectedType">
-                  <mat-option *ngFor="let issueType of issueTypeList" [value]="issueType.issueTypeId">
-                      {{ issueType.issueTypeName}}
-                  </mat-option>
-              </mat-select>              
-            </mat-form-field> 
+  <mat-card fxFlex="500px" fxFlex.xs="100%">
+    <!-- Title of an Card -->
+    <title mat-dialog-title> {{pageTitle}} </title>
+    <div *ngIf="DeleteButton" align="end">
+      <button mat-icon-button color="accent" (click)="Delete(issueId)">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
 
-            <mat-form-field>
-              <mat-label>Select Sprint</mat-label>
-              <mat-select formControlName="sprintId" >
-                  <mat-option *ngFor="let sprint of sprintsList" [value]="sprint.sprintId">
-                      {{ sprint.sprintName}}
-                  </mat-option>
-              </mat-select>               
-              <mat-error *ngIf="hasError('sprintId','required')">sprint is required</mat-error>             
-            </mat-form-field> 
+    </div>
+    <form [formGroup]="issueForm" autocomplete="off" novalidate (ngSubmit)="onSubmit()" fxLayout="column wrap"
+      fxLayoutAlign="center" fxLayoutGap="20px">
+      <mat-dialog-content>
+        <div>
+          <mat-form-field *ngIf="AddButton">
+            <mat-label>Select IssueStatus</mat-label>
+            <mat-select formControlName="issueStatusId">
+              <mat-option *ngFor="let status of issueStatusList" [value]="status.issueStatusId">
+                {{ status.statusName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('issueStatusId','required')">IssueStatus is required</mat-error>
+          </mat-form-field>
 
-            <mat-form-field *ngIf="selectedType===3">
-              <input matInput type="text" placeholder="TimeTracking" formControlName="timeTracking" >
-              <!-- <mat-hint align="start">Not less then 3 characters .</mat-hint> -->
-            </mat-form-field>
+          <mat-form-field>
+            <mat-label>Select IssueType</mat-label>
+            <mat-select formControlName="issueTypeId" [(value)]="selectedType">
+              <mat-option *ngFor="let issueType of issueTypeList" [value]="issueType.issueTypeId">
+                {{ issueType.issueTypeName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Select Sprint</mat-label>
+            <mat-select formControlName="sprintId">
+              <mat-option *ngFor="let sprint of sprintsList" [value]="sprint.sprintId">
+                {{ sprint.sprintName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('sprintId','required')">sprint is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="selectedType===3">
+            <input matInput type="text" placeholder="TimeTracking" formControlName="timeTracking">
+          </mat-form-field>
         </div>
-        
-        <div aria-colcount="4" >
-              <mat-form-field>
-                <input matInput type="text" placeholder="Subject" formControlName="subject" autocomplete="off" maxlength="50">
-                <!-- <mat-hint align="start">Not less then 5 characters .</mat-hint> -->
-                <mat-error *ngIf="hasError('subject','required')">subject is required</mat-error>
-                <mat-error *ngIf="hasError('subject', 'minlength')">Please enter min 5 characters</mat-error>
-              </mat-form-field>
 
-              <mat-form-field>
-                <input matInput type="text" placeholder="Description" formControlName="description"  autocomplete="off" maxlength="100">
-                <!-- <mat-hint align="start">Not less then 10 characters .</mat-hint> -->
-                <mat-error *ngIf="hasError('description','required')">description is required</mat-error>
-                <mat-error *ngIf="hasError('description', 'minlength')">Please enter min 10 characters</mat-error>
-              </mat-form-field>
-  
-              <mat-form-field>
-                <mat-label>Select Assigned To</mat-label>
-                <mat-select formControlName="assignedTo" >
-                    <mat-option *ngFor="let user of usersList" [value]="user.id">
-                        {{ user.username}}
-                    </mat-option>
-                </mat-select>                    
-                <mat-error *ngIf="hasError('assignedTo','required')">assignedTo is required</mat-error>                         
-              </mat-form-field>     
-               
-              <mat-form-field>
-                <input matInput type="text" placeholder="Tags" formControlName="tags"  autocomplete="off" maxlength="20">
-                <!-- <mat-hint align="start">Not less then 3 characters .</mat-hint> -->
-                <mat-error *ngIf="hasError('tags','required')">tags is required</mat-error>
-                <mat-error *ngIf="hasError('tags', 'minlength')">Please enter min 5 characters</mat-error>
-              </mat-form-field> 
-      </div>
-      <br>          
-      <div aria-colcount="4" *ngIf="selectedType===1">      
-              <mat-form-field>
-                <input matInput type="text" placeholder="Attachment" formControlName="attachment" maxlength="20" >
-                <!-- <mat-hint align="start">Not less then 3 characters .</mat-hint> -->
-              </mat-form-field>
+        <div aria-colcount="4">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Subject" formControlName="subject" autocomplete="off"
+              maxlength="50">
+            <mat-error *ngIf="hasError('subject','required')">subject is required</mat-error>
+            <mat-error *ngIf="hasError('subject', 'minlength')">Please enter min 5 characters</mat-error>
+          </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Select Reporter</mat-label>
-                <mat-select formControlName="reporter" >
-                    <mat-option *ngFor="let user of usersList" [value]="user.id">
-                        {{ user.username}}
-                    </mat-option>
-                </mat-select>                            
-              </mat-form-field> 
+          <mat-form-field>
+            <input matInput type="text" placeholder="Description" formControlName="description" autocomplete="off"
+              maxlength="100">
+            <mat-error *ngIf="hasError('description','required')">description is required</mat-error>
+            <mat-error *ngIf="hasError('description', 'minlength')">Please enter min 10 characters</mat-error>
+          </mat-form-field>
 
-              <mat-form-field>
-                <input matInput type="text" placeholder="Enviroment" formControlName="enviroment" maxlength="20">
-                <!-- <mat-hint align="start">Not less then 3 characters .</mat-hint> -->
-              </mat-form-field>
+          <mat-form-field>
+            <mat-label>Select Assigned To</mat-label>
+            <mat-select formControlName="assignedTo">
+              <mat-option *ngFor="let user of usersList" [value]="user.id">
+                {{ user.username}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('assignedTo','required')">assignedTo is required</mat-error>
+          </mat-form-field>
 
-              <mat-form-field>
-                <input matInput type="text" placeholder="Browser" formControlName="browser" maxlength="20">
-                <!-- <mat-hint align="start">Not less then 3 characters .</mat-hint> -->
-              </mat-form-field>
-       </div>
-       <br>
-       <div aria-colcount="4" *ngIf="selectedType===2">
-              <mat-form-field>
-                <input matInput type="text" placeholder="AcceptanceCriteria" formControlName="acceptanceCriteria" autocomplete="off" maxlength="20">
-                <!-- <mat-hint align="start">Not less then 3 characters .</mat-hint> -->
-              </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Tags" formControlName="tags" autocomplete="off" maxlength="20">
+            <mat-error *ngIf="hasError('tags','required')">tags is required</mat-error>
+            <mat-error *ngIf="hasError('tags', 'minlength')">Please enter min 5 characters</mat-error>
+          </mat-form-field>
+        </div>
+        <br>
+        <div aria-colcount="4" *ngIf="selectedType===1">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Attachment" formControlName="attachment" maxlength="20">
+          </mat-form-field>
 
-              <mat-form-field>
-                <input matInput type="number" placeholder="StoryPoints" formControlName="storyPoints" autocomplete="off">
-                <!-- <mat-hint align="start">Not more 3 characters .</mat-hint> -->
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput type="number" placeholder="Epic" formControlName="epic" autocomplete="off">
-                <!-- <mat-hint align="start">Not more 2 characters .</mat-hint> -->
-              </mat-form-field>
-              <mat-slide-toggle   formControlName="uat">
-                UAT: Is Required
-               </mat-slide-toggle>
+          <mat-form-field>
+            <mat-label>Select Reporter</mat-label>
+            <mat-select formControlName="reporter">
+              <mat-option *ngFor="let user of usersList" [value]="user.id">
+                {{ user.username}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-               <!-- <mat-radio-group formControlName="uat">
-                <mat-radio-button class="example-margin" value="true">
-                  Primary
-                </mat-radio-button>
-                <mat-radio-button class="example-margin" value="false">
-                  Accent
-                </mat-radio-button>
-              </mat-radio-group> -->
-       </div>      
-            <br>
-           
-       </mat-dialog-content>    
+          <mat-form-field>
+            <input matInput type="text" placeholder="Enviroment" formControlName="enviroment" maxlength="20">
+          </mat-form-field>
 
-           <mat-dialog-actions align="center">
-               
-            <div *ngIf="AddButton; else EditButton">
-             <button mat-raised-button color="primary" [disabled]="!issueForm.valid">Add </button>
-            </div>
-            <ng-template #EditButton>
-              <button mat-raised-button color="primary" >Update</button>             
-            </ng-template>
-              <!-- <div *ngIf="DeleteButton">              
-                <button mat-raised-button color="warn" (click)="Delete(issueId)">Delete</button>
-              </div> -->
-            
-             <button type="button" mat-raised-button color="warn" (click)="closeDialog()">Close</button>
-           </mat-dialog-actions>
-           
-        </form>  
-        
-    </mat-card>  
+          <mat-form-field>
+            <input matInput type="text" placeholder="Browser" formControlName="browser" maxlength="20">
+          </mat-form-field>
+        </div>
+        <br>
+        <div aria-colcount="4" *ngIf="selectedType===2">
+          <mat-form-field>
+            <input matInput type="text" placeholder="AcceptanceCriteria" formControlName="acceptanceCriteria"
+              autocomplete="off" maxlength="20">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput type="number" placeholder="StoryPoints" formControlName="storyPoints" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="number" placeholder="Epic" formControlName="epic" autocomplete="off">
+          </mat-form-field>
+          <mat-slide-toggle formControlName="uat">
+            UAT: Is Required
+          </mat-slide-toggle>
+        </div>
+        <br>
+
+      </mat-dialog-content>
+      <mat-dialog-actions align="center">
+        <div *ngIf="AddButton; else EditButton">
+          <button mat-raised-button color="primary" [disabled]="!issueForm.valid">Add </button>
+        </div>
+        <ng-template #EditButton>
+          <button mat-raised-button color="primary">Update</button>
+        </ng-template>
+
+        <button type="button" mat-raised-button color="warn" (click)="closeDialog()">Close</button>
+      </mat-dialog-actions>
+
+    </form>
+
+  </mat-card>
 </section>

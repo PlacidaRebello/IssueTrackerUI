@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { MatDialog,MatDialogConfig } from '@angular/material';
-// import { ReusableModalComponent } from '../reusable-modal/reusable-modal.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,27 +17,15 @@ export class NavbarComponent {
       map(result => result.matches),
       shareReplay()
     );
+  public name:Observable<string>;
+  public role:Observable<string>;
+  public LoginStatus:Observable<boolean>;
+  constructor(private userService: UserService, private breakpointObserver: BreakpointObserver, private matDialog: MatDialog) { }
 
-  constructor(private breakpointObserver: BreakpointObserver,private matDialog:MatDialog)
-   { }
-
-  // LogOut(){
-  //   this.openLogOutModal();
-  // }
-  // openLogOutModal() {
-  //   const dialogConfig = new MatDialogConfig();
-  //  // dialogConfig.disableClose = false;
-  //   dialogConfig.id = "modal-component";
-  //   dialogConfig.height = "150px";
-  //   dialogConfig.width = "400px";
-  //   dialogConfig.data = {
-  //     name: "Logout",
-  //     title: "Are you sure you want to Logout?",
-  //     actionButtonText: "LogOut",
-  //     Id:0
-  //   }
-  //   const modalDialog = this.matDialog.open(ReusableModalComponent, dialogConfig);
-  // }
-   
+  ngOnInit() {
+    this.LoginStatus = this.userService.isLoggedIn;
+    this.name = this.userService.currentUserName;
+    this.role=this.userService.currentUserRole;
+  }
 
 }

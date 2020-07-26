@@ -1,6 +1,5 @@
 import { Component, OnInit,ViewChild, AfterViewInit } from '@angular/core';
-import { CreateReleaseRequest, GetReleaseData, Release, ReleasesClient}from 'src/app/services/issue-tracker.service';
-import { FormGroup, Validators ,FormBuilder} from '@angular/forms';
+import {  GetReleaseData, ReleasesClient}from 'src/app/services/issue-tracker.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource, MatSort,MatPaginator, MatDialogConfig, MatDialog} from '@angular/material';
 import { AddEditReleaseComponent } from '../add-edit-release/add-edit-release.component';
@@ -54,7 +53,6 @@ export class ReleaseComponent implements OnInit {
   public redirectToDelete(id):void  {
     this.openCofirmationModal(id);
   }
-  // public redirectToDetails(id):void{}
 
   openModal() {
     const dialogConfig = new MatDialogConfig();   

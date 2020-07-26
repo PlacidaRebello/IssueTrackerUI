@@ -4,18 +4,18 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
-import { FormsModule} from '@angular/forms';
-import { ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './Modules/material/material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ChartsModule} from 'ng2-charts';
-import { FlexLayoutModule} from '@angular/flex-layout';
+import { ChartsModule } from 'ng2-charts';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { SprintComponent} from './Components/sprint/sprint.component';
+import { SprintComponent } from './Components/sprint/sprint.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
-import { IssueTrackerService} from './services/issue-tracker.service';
+import { IssueTrackerService } from './services/issue-tracker.service';
 import { AddEditSprintComponent } from './Components/add-edit-sprint/add-edit-sprint.component';
 import { AddEditReleaseComponent } from './Components/add-edit-release/add-edit-release.component';
 import { ReusableModalComponent } from './Components/reusable-modal/reusable-modal.component';
@@ -31,6 +31,7 @@ import { RegisterComponent } from './Components/register/register.component';
 import { LogOutComponent } from './Components/log-out/log-out.component';
 import { SuccessDialogComponent } from './Components/shared/dialogs/success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from './Components/shared/dialogs/error-dialog/error-dialog.component';
+import { AuthGuard } from './_helpers/auth.guard';
 
 @NgModule({
   declarations: [
@@ -64,17 +65,18 @@ import { ErrorDialogComponent } from './Components/shared/dialogs/error-dialog/e
     FlexLayoutModule,
     MaterialModule
   ],
-  providers: [IssueTrackerService,UserService,{
-    provide: HTTP_INTERCEPTORS,
-    useClass: JwtInterceptor,
-    multi: true
-  }],
+  providers: [IssueTrackerService, UserService, AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent],
-  exports:[
+  exports: [
     ErrorDialogComponent,
-    SuccessDialogComponent 
-   ],
-  entryComponents:[AddEditSprintComponent,
+    SuccessDialogComponent
+  ],
+  entryComponents: [AddEditSprintComponent,
     AddEditReleaseComponent,
     AddEditIssueComponent,
     ReusableModalComponent,

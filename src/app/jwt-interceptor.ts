@@ -10,7 +10,6 @@ export class JwtInterceptor implements HttpInterceptor{
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
      
-        //const re='/SignIn';
         const token=localStorage.getItem('auth_token');
     
         if(token){

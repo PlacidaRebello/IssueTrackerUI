@@ -10,15 +10,16 @@ import { ManagementDashBoardComponent } from './Components/management-dash-board
 import { RegisterComponent } from './Components/register/register.component';
 import { ReusableModalComponent } from './Components/reusable-modal/reusable-modal.component';
 import { LogOutComponent } from './Components/log-out/log-out.component';
+import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
-  {path:"Sprints",component:SprintComponent},
+  {path:"Sprints",component:SprintComponent,canActivate:[AuthGuard]},
   {path:"AddEditSprints",component:AddEditSprintComponent},
-  {path:"Release",component:ReleaseComponent},
-  {path:"Issues",component:IssuesComponent},
+  {path:"Release",component:ReleaseComponent,canActivate:[AuthGuard]},
+  {path:"Issues",component:IssuesComponent,canActivate:[AuthGuard]},
   {path:"Login",component:LoginFormComponent},
-  {path:"Dashboard",component:DashboardComponent},
-  {path:"Management",component:ManagementDashBoardComponent},
+  {path:"Dashboard",component:DashboardComponent,canActivate:[AuthGuard]},
+  {path:"Management",component:ManagementDashBoardComponent,canActivate:[AuthGuard]},
   {path:"Register", component:RegisterComponent},  
   {path:"Reusable", component:ReusableModalComponent}, 
   {path:"LogOut", component:LogOutComponent},  

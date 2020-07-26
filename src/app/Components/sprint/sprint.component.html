@@ -1,76 +1,72 @@
-
 <!-- code for adding sprint -->
-<!-- Main Toolbar of an App -->    
-<mat-toolbar style="color:#3f51b5;">    
-  <span> Sprint List</span>    
-  <!-- <span class="demo-toolbar"></span>        -->
-  
-</mat-toolbar>   
+<!-- Main Toolbar of an App -->
+<mat-toolbar style="color:#3f51b5;">
+  <span> Sprint List</span>
+
+</mat-toolbar>
 
 
 <div class="mat-elevation-z8">
-  <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="800px" fxLayoutGap.lt.md="20px">
+  <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="800px"
+    fxLayoutGap.lt.md="20px">
     <mat-form-field>
-      <!-- <mat-icon>search</mat-icon> -->
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
     </mat-form-field>
-    <div>    
-     <button mat-raised-button id="create-button" style="color:#3f51b5;" (click)="openModal()">Create Sprint</button>
+    <div>
+      <button mat-raised-button id="create-button" style="color:#3f51b5;" (click)="openModal()">Create Sprint</button>
     </div>
   </div>
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="sprintName">
-      <th mat-header-cell *matHeaderCellDef > SprintName</th>
+      <th mat-header-cell *matHeaderCellDef> SprintName</th>
       <td mat-cell *matCellDef="let element"> {{element.sprintName}} </td>
     </ng-container>
-   
+
     <ng-container matColumnDef="sprintPoints">
-        <th mat-header-cell *matHeaderCellDef> SprintPoints </th>
-        <td mat-cell *matCellDef="let element"> {{element.sprintPoints}} </td>
+      <th mat-header-cell *matHeaderCellDef> SprintPoints </th>
+      <td mat-cell *matCellDef="let element"> {{element.sprintPoints}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="startDate" >
+    <ng-container matColumnDef="startDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> StartDate </th>
       <td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
     </ng-container>
-   
+
     <ng-container matColumnDef="endDate">
       <th mat-header-cell *matHeaderCellDef> EndDate </th>
       <td mat-cell *matCellDef="let element"> {{element.endDate|date}} </td>
     </ng-container>
-    
+
     <ng-container matColumnDef="sprintStatusName">
-      <th mat-header-cell *matHeaderCellDef > Status </th>
+      <th mat-header-cell *matHeaderCellDef> Status </th>
       <td mat-cell *matCellDef="let element"> {{element.sprintStatusName}} </td>
     </ng-container>
-   
+
     <ng-container matColumnDef="update">
-        <th mat-header-cell *matHeaderCellDef> Update </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="accent" (click)="redirectToUpdatePage(element.sprintId)">
-              <mat-icon class="mat-18">system_update</mat-icon>
-          </button>
-        </td>
+      <th mat-header-cell *matHeaderCellDef> Update </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" (click)="redirectToUpdatePage(element.sprintId)">
+          <mat-icon class="mat-18">system_update</mat-icon>
+        </button>
+      </td>
     </ng-container>
-   
+
     <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef> Delete </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="warn" (click)="redirectToDelete(element.sprintId)">
-                <mat-icon class="mat-18">delete</mat-icon>
-            </button>
-          </td>
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" (click)="redirectToDelete(element.sprintId)">
+          <mat-icon class="mat-18">delete</mat-icon>
+        </button>
+      </td>
     </ng-container>
-   
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>    
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [pageSize]="5" ></mat-paginator> 
+  <mat-paginator [pageSize]="5"></mat-paginator>
 </div>
 
 <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
-  <mat-progress-spinner 
-    color="primary" 
-    mode="indeterminate">
+  <mat-progress-spinner color="primary" mode="indeterminate">
   </mat-progress-spinner>
 </mat-card>
