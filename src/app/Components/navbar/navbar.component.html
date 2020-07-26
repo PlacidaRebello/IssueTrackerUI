@@ -1,12 +1,33 @@
+<mat-toolbar color="primary">
+  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span>IssueTrackerUserInterface</span>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li *ngIf="LoginStatus|async">
+        <a class="nav-link text-danger" *ngIf="(name | async) as UserName">Hi {{UserName | uppercase}}!</a>
+      </li>
+      <li *ngIf="LoginStatus|async">
+        <a class="nav-link text-danger" *ngIf="(role|async)==='Admin'">{{role|async}}</a>
+      </li>
+      <li class="nav-item" *ngIf="!(LoginStatus|async) ">
+        <a class="nav-link text-dark" routerLink="/Login">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="LoginStatus|async">
+        <a class="btn btn-primary text-white" routerLink="/LogOut">Logout</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav #drawer class="sidenav"  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
       <a routerLink="/Management" style="color: black;">
-          <mat-icon >home</mat-icon> 
-            <span class="nav-caption">Menu</span>
+        <mat-icon>home</mat-icon>
+        <span class="nav-caption">Menu</span>
       </a>
     </mat-toolbar>
     <mat-nav-list>
@@ -15,53 +36,49 @@
         <span class="nav-caption">SprintList</span>
       </a>
       <a mat-list-item [routerLink]="'Release'">
-         <mat-icon>timeline</mat-icon> <!-- track_changes -->
+        <mat-icon>timeline</mat-icon> <!-- track_changes -->
         <span class="nav-caption">ReleaseList</span>
       </a>
-      <a mat-list-item [routerLink]="'Issues'">         
+      <a mat-list-item [routerLink]="'Issues'">
         <mat-icon>bug_report</mat-icon>
         <span class="nav-caption">IssuesList</span>
-      </a>      
-      <a mat-list-item [routerLink]="'Management'"> 
+      </a>
+      <a mat-list-item [routerLink]="'Management'">
         <mat-icon>dashboard</mat-icon>
         <span class="nav-caption">Management</span>
       </a>
-      <a mat-list-item [routerLink]="'Dashboard'"> 
+      <a mat-list-item [routerLink]="'Dashboard'">
         <mat-icon>dashboard</mat-icon>
         <span class="nav-caption">Dashboard</span>
       </a>
-      
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
+    <!-- <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>IssueTrackerUserInterface</span>   
-       
+      <span>IssueTrackerUserInterface</span>
+
       <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-        <ul fxLayout fxLayoutGap="15px" class="navigation-items">   
+        <ul fxLayout fxLayoutGap="15px" class="navigation-items">
           <li *ngIf="LoginStatus|async">
-            <a class="nav-link text-danger" *ngIf="(name | async) as UserName">Hi {{UserName | uppercase}}!</a>            
-          </li>  
+            <a class="nav-link text-danger" *ngIf="(name | async) as UserName">Hi {{UserName | uppercase}}!</a>
+          </li>
           <li *ngIf="LoginStatus|async">
-              <a class="nav-link text-danger" *ngIf="(role|async)==='Admin'">{{role|async}}</a>
+            <a class="nav-link text-danger" *ngIf="(role|async)==='Admin'">{{role|async}}</a>
           </li>
           <li class="nav-item" *ngIf="!(LoginStatus|async) ">
             <a class="nav-link text-dark" routerLink="/Login">Login</a>
           </li>
           <li class="nav-item" *ngIf="LoginStatus|async">
-            <a class="btn btn-primary text-white" routerLink="/LogOut" >Logout</a>
+            <a class="btn btn-primary text-white" routerLink="/LogOut">Logout</a>
           </li>
         </ul>
       </div>
-    </mat-toolbar>   
+    </mat-toolbar> -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
