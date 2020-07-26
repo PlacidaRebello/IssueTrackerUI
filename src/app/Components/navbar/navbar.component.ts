@@ -17,9 +17,9 @@ export class NavbarComponent {
       map(result => result.matches),
       shareReplay()
     );
-  private name:Observable<string>;
-  private role:Observable<string>;
-  private LoginStatus:Observable<boolean>;
+  public name:Observable<string>;
+  public role:Observable<string>;
+  public LoginStatus:Observable<boolean>;
   constructor(private userService: UserService, private breakpointObserver: BreakpointObserver, private matDialog: MatDialog) { }
 
   ngOnInit() {
