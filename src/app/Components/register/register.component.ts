@@ -26,7 +26,8 @@ export class RegisterComponent implements OnInit {
       userName: ['', Validators.required],
       email:['',[Validators.required,Validators.email]],
       password: ['', Validators.required],
-      confirmPassword:['',Validators.required]
+      confirmPassword:['',Validators.required],
+      userRole:['',Validators.required]
     }, { 
       // validator: ConfirmedValidator('password', 'confirmPassword')
     });  
@@ -51,6 +52,7 @@ export class RegisterComponent implements OnInit {
         newUser.email=this.registrationForm.value.email;
         newUser.password=this.registrationForm.value.password;
         newUser.confirmPassword=this.registrationForm.value.confirmPassword;
+        newUser.userRole=this.registrationForm.value.userRole;
         this.user.createUser(newUser).subscribe(res=>{  
              this._snackBar.open(res.message,"OK",{
               duration:2000,

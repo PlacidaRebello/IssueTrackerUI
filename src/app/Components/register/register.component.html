@@ -9,8 +9,7 @@
             <input  matInput  placeholder="Username"  name="username" formControlName="userName"  autocomplete="off" maxlength="50">
             <mat-error *ngIf="hasError('userName','required')">
                username is required                    
-            </mat-error>
-            
+            </mat-error>            
          </mat-form-field>
          <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
@@ -37,6 +36,13 @@
             <!-- <mat-error *ngIf="f.confirmPassword.errors.confirmedValidator">
                Password and confirm password do not match
             </mat-error>  -->
+         </mat-form-field>
+         <mat-form-field class="full-width">
+            <mat-label>UserRole</mat-label>
+            <input  matInput  placeholder="UserRole"  name="UserRole" formControlName="userRole"  autocomplete="off" maxlength="50">
+            <mat-error *ngIf="hasError('userRole','required')">
+               userRole is required                    
+            </mat-error>            
          </mat-form-field>
         </form>
      </mat-card-content>

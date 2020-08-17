@@ -2959,6 +2959,7 @@ export class RegisterUserRequest implements IRegisterUserRequest {
     email!: string;
     password!: string;
     confirmPassword!: string;
+    userRole!:string;
 
     constructor(data?: IRegisterUserRequest) {
         if (data) {
@@ -2975,6 +2976,7 @@ export class RegisterUserRequest implements IRegisterUserRequest {
             this.email = _data["email"];
             this.password = _data["password"];
             this.confirmPassword = _data["confirmPassword"];
+            this.userRole=_data["userRole"];
         }
     }
 
@@ -2991,6 +2993,7 @@ export class RegisterUserRequest implements IRegisterUserRequest {
         data["email"] = this.email;
         data["password"] = this.password;
         data["confirmPassword"] = this.confirmPassword;
+        data["userRole"]=this.userRole;
         return data; 
     }
 }
@@ -3000,6 +3003,7 @@ export interface IRegisterUserRequest {
     email: string;
     password: string;
     confirmPassword: string;
+    userRole:string;
 }
 
 export class GetUsersData implements IGetUsersData {
