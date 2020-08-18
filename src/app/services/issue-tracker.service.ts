@@ -1531,9 +1531,9 @@ export class RegisterClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44322";
+        this.baseUrl =environment.baseUrl;
     }
 
     createUser(userRequest: RegisterUserRequest): Observable<SuccessResponse> {
