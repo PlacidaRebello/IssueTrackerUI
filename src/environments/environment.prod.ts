@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl:'https://devuiissuetracker.azurewebsites.net'
+  baseUrl:'https://devissuetracker.azurewebsites.net/'
 };
