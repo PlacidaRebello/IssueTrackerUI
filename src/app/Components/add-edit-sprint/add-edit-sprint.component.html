@@ -1,44 +1,23 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
-  <mat-card fxFlex="500px" fxFlex.xs="100%">
+  <mat-card fxFlex="700px" fxFlex.xs="100%">
     <!-- Title of an Card -->
     <title mat-dialog-title> {{pageTitle}} </title>
 
     <form [formGroup]="sprintForm" autocomplete="off" novalidate (ngSubmit)="onSubmit()" fxLayout="column wrap"
       fxLayoutAlign="center" fxLayoutGap="20px">
       <mat-dialog-content>
-        <div aria-colcount="4">
+       
           <mat-form-field>
             <input matInput type="text" [readonly]="isReadOnly" placeholder="SprintName" formControlName="sprintName"
               autocomplete="off" maxlength="30">
-
             <mat-error *ngIf="hasError('sprintName','required')">sprintName is required</mat-error>
             <mat-error *ngIf="hasError('sprintName', 'minlength')">Please enter min 5 characters</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <input matInput type="number" placeholder="Sprint Points" formControlName="sprintPoints" autocomplete="off">
-
             <mat-error *ngIf="hasError('sprintPoints', 'required')">SprintPoints are required</mat-error>
           </mat-form-field>
-
-          <mat-form-field>
-            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a StartDate"
-              formControlName="startDate" id="startDate" readonly (click)="picker.open()" (dateInput)="addEvent($event)"
-              autocomplete="off">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker [startAt]="minDate"></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput [min]="minEndDate" [max]="maxDate" [matDatepicker]="endatepicker"
-              placeholder="Choose a EndDate" formControlName="endDate" id="EndDate" readonly
-              (click)="endatepicker.open()" autocomplete="off">
-            <mat-datepicker-toggle matSuffix [for]="endatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #endatepicker [startAt]="minDate"></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <br>
-        <div>
           <mat-form-field>
             <mat-label>Select Release</mat-label>
             <mat-select formControlName="releaseId">
@@ -50,6 +29,21 @@
           </mat-form-field>
 
           <mat-form-field>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a StartDate"
+              formControlName="startDate" id="startDate" readonly (click)="picker.open()" (dateInput)="addEvent($event)"
+              autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker [startAt]="minDate"></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [min]="minEndDate" [max]="maxDate" [matDatepicker]="endatepicker"
+              placeholder="Choose a EndDate" formControlName="endDate" id="EndDate" readonly
+              (click)="endatepicker.open()" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="endatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #endatepicker [startAt]="minDate"></mat-datepicker>
+          </mat-form-field>     
+        
+          <mat-form-field>
             <mat-label>Select Status</mat-label>
             <mat-select formControlName="sprintStatusId">
               <mat-option *ngFor="let status of SprintStatus" [value]="status.sprintStatusId">
@@ -57,7 +51,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
+        
       </mat-dialog-content>
 
       <mat-dialog-actions align="center">

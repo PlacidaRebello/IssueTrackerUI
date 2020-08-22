@@ -12,7 +12,14 @@
                 <mat-error *ngIf="hasError('releaseName','required')">ReleaseName is required</mat-error>
                 <mat-error *ngIf="hasError('releaseName', 'minlength')">Please enter min 5 characters</mat-error>
               </mat-form-field>
-
+              <mat-form-field>
+                <mat-label>Select Status</mat-label>
+                <mat-select formControlName="sprintStatusId" >
+                    <mat-option *ngFor="let status of SprintStatus" [value]="status.sprintStatusId">
+                        {{ status.sprintStatusName }}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
               <mat-form-field>
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a StartDate" formControlName="startDate" id="startDate" 
                     readonly (click)="picker.open()" (dateInput)="addEvent($event)" autocomplete="off">
@@ -27,18 +34,10 @@
                 <mat-datepicker #endatepicker></mat-datepicker>
               </mat-form-field> 
 
-              <mat-form-field>
-                    <mat-label>Select Status</mat-label>
-                    <mat-select formControlName="sprintStatusId" >
-                        <mat-option *ngFor="let status of SprintStatus" [value]="status.sprintStatusId">
-                            {{ status.sprintStatusName }}
-                        </mat-option>
-                    </mat-select>
-              </mat-form-field>
+             
            </mat-dialog-content>    
   
-           <mat-dialog-actions align="center">
-               
+           <mat-dialog-actions align="center">               
             <div *ngIf="AddButton; else EditButton">
              <button mat-raised-button color="primary" [disabled]="!releaseForm.valid">Create</button>
             </div>
