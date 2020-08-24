@@ -6,9 +6,9 @@
   <span>IssueTrackerUserInterface</span>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li *ngIf="LoginStatus|async">
+      <!-- <li *ngIf="LoginStatus|async">
         <a class="nav-link text-danger" *ngIf="(name | async) as UserName">Hi {{UserName | uppercase}}!</a>
-      </li>
+      </li> -->
       <li *ngIf="LoginStatus|async">
         <a class="nav-link text-danger" *ngIf="(role|async)==='Admin'">{{role|async}}</a>
       </li>
@@ -47,10 +47,10 @@
         <mat-icon>dashboard</mat-icon>
         <span class="nav-caption">Management</span>
       </a>
-      <a mat-list-item [routerLink]="'Dashboard'">
+      <!-- <a mat-list-item [routerLink]="'Dashboard'">
         <mat-icon>dashboard</mat-icon>
         <span class="nav-caption">Dashboard</span>
-      </a>
+      </a> -->
 
     </mat-nav-list>
   </mat-sidenav>
