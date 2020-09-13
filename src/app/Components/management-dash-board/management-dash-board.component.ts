@@ -88,6 +88,7 @@ export class ManagementDashBoardComponent implements OnInit {
     this.issuesDt=event.container.data;
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     updateIssue.currentItemIndex=event.currentIndex;  
+    updateIssue.issueStatus=this.issuesDt[event.currentIndex].issueStatusId
     updateIssue.issueId=this.issuesDt[event.currentIndex].issueId;
      if(event.currentIndex!=0){
        updateIssue.prevItem=true;
